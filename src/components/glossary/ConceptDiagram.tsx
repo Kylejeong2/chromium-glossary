@@ -36,7 +36,7 @@ export function ConceptDiagram({ diagram }: { diagram: Diagram }) {
   const markerId = `arrow-${diagram.kind}-${diagram.nodes[0].id.replace(/[^a-z0-9-]/gi, "-")}`;
   const nodes = positions(diagram);
   return (
-    <figure className={`concept-diagram concept-diagram--${diagram.kind}`}>
+    <figure className={`concept-diagram concept-diagram--${diagram.kind}`} tabIndex={0}>
       <svg viewBox="0 0 600 300" role="img" aria-label={`${diagram.kind} concept diagram. ${diagram.description}`}>
         <desc>{diagram.description}</desc>
         <defs>

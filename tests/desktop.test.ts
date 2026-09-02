@@ -1,35 +1,53 @@
 import { describe, expect, it } from "vitest";
-import { createDesktopState, desktopReducer, focusedApp } from "../src/domain/desktop";
+import { clampFrame, createDesktopState, desktopReducer, focusedApp, windowFrame, workspaceFor } from "../src/domain/desktop";
 
 describe("desktop reducer", () => {
-  it("starts with every app closed", () => {
+  it("starts every app closed in a freeform workspace", () => {
     const state = createDesktopState();
+    expect(state.workspace.mode).toBe("freeform");
     expect(Object.values(state.windows).every((window) => window.status === "closed")).toBe(true);
     expect(focusedApp(state)).toBeUndefined();
   });
 
-  it("opens, focuses, minimizes, restores, and closes windows", () => {
+  it("opens, focuses, minimizes, restores, and closes idempotently", () => {
     let state = createDesktopState();
     state = desktopReducer(state, { type: "app.open", app: "chromium" });
-    expect(focusedApp(state)).toBe("chromium");
     state = desktopReducer(state, { type: "app.open", app: "terminal" });
     expect(focusedApp(state)).toBe("terminal");
     state = desktopReducer(state, { type: "window.focus", app: "chromium" });
-    expect(focusedApp(state)).toBe("chromium");
+    expect(desktopReducer(state, { type: "window.focus", app: "chromium" })).toBe(state);
     state = desktopReducer(state, { type: "window.minimize", app: "chromium" });
     expect(state.windows.chromium.status).toBe("minimized");
-    expect(focusedApp(state)).toBe("terminal");
     state = desktopReducer(state, { type: "window.restore", app: "chromium" });
     expect(focusedApp(state)).toBe("chromium");
     state = desktopReducer(state, { type: "window.close", app: "chromium" });
     expect(state.windows.chromium.status).toBe("closed");
+    expect(desktopReducer(state, { type: "window.close", app: "chromium" })).toBe(state);
   });
 
-  it("makes repeated focus idempotent and clamps icon positions", () => {
-    let state = createDesktopState("chromium");
-    const focused = desktopReducer(state, { type: "window.focus", app: "chromium" });
-    expect(focused).toBe(state);
-    state = desktopReducer(state, { type: "icon.move", icon: "trash", position: { x: -30, y: 900 }, bounds: { x: 500, y: 600 } });
-    expect(state.iconPositions.trash).toEqual({ x: 0, y: 600 });
+  it("fully bounds window and icon commits", () => {
+    const workspace = workspaceFor({ width: 1200, height: 800 });
+    expect(clampFrame({ x: -500, y: 999, width: 900, height: 600 }, workspace)).toEqual({ x: 12, y: 116, width: 900, height: 600 });
+    let state = createDesktopState("chromium", { width: 1200, height: 800 });
+    state = desktopReducer(state, { type: "window.move", app: "chromium", frame: { x: -100, y: -100, width: 800, height: 500 } });
+    expect(windowFrame(state.windows.chromium, state.workspace)).toMatchObject({ x: 12, y: 52 });
+    state = desktopReducer(state, { type: "icon.move", app: "trash", position: { x: -30, y: 900 } });
+    expect(state.iconPositions.trash).toEqual({ x: 12, y: 636 });
+  });
+
+  it("maximizes, restores, and reflows compact without losing the restore frame", () => {
+    let state = createDesktopState("chromium", { width: 1200, height: 800 });
+    const floating = state.windows.chromium.placement;
+    state = desktopReducer(state, { type: "window.maximize-toggle", app: "chromium" });
+    expect(state.windows.chromium.placement.kind).toBe("maximized");
+    expect(windowFrame(state.windows.chromium, state.workspace)).toEqual(state.workspace.usable);
+    state = desktopReducer(state, { type: "window.maximize-toggle", app: "chromium" });
+    expect(state.windows.chromium.placement).toEqual(floating);
+    state = desktopReducer(state, { type: "workspace.changed", viewport: { width: 390, height: 844 } });
+    expect(state.workspace.mode).toBe("compact");
+    expect(state.windows.chromium.placement.kind).toBe("compact");
+    expect(desktopReducer(state, { type: "window.move", app: "chromium", frame: { x: 30, y: 30, width: 320, height: 400 } })).toBe(state);
+    state = desktopReducer(state, { type: "workspace.changed", viewport: { width: 1200, height: 800 } });
+    expect(state.windows.chromium.placement.kind).toBe("floating");
   });
 });
