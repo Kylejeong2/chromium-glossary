@@ -1,15 +1,16 @@
 ---
 spec_format_version: "0.1"
-title: "Browserbase Chromium glossary"
+title: "Chromium glossary"
 artifact_type: "prd"
-spec_revision: 1
+spec_revision: 2
 author: "Kyle Jeong"
 created_at: "2026-09-02T11:23:00-07:00"
-updated_at: "2026-09-02T11:23:00-07:00"
+updated_at: "2026-09-02T14:24:00-07:00"
 applies_to:
-  - path: "app/"
-  - path: "components/"
-  - path: "data/"
+  - path: "src/app/"
+  - path: "src/components/"
+  - path: "src/domain/"
+  - path: "src/data/"
 ---
 
 ## Problem
@@ -22,7 +23,7 @@ If Browserbase presents 50 foundational Chromium concepts as a searchable, linke
 
 ## Product Summary
 
-Build a Browserbase-branded Next.js microsite that starts on an early-2000s desktop. Double-clicking Chromium opens an 80 percent browser window with a modern ChromeOS feel. The window contains a curated glossary for developers learning browser internals. Each entry includes a plain-language definition, a compact diagram, representative source-tree paths, related terms, and links to primary Chromium documentation. The browser can be closed to return to the desktop. Desktop Easter eggs include a Browserbase terminal that points visitors to the Browserbase careers page.
+Build a Next.js microsite that starts as a polished native operating system inspired by iOS. Double-clicking Chrome opens a draggable browser window that matches Chrome's tab strip, navigation toolbar, omnibox, controls, and content hierarchy. The window contains a curated glossary for developers learning browser internals. Each entry includes a plain-language definition, a compact diagram, representative source-tree paths, related terms, and links to primary Chromium documentation. Visitors can close the browser to return to the desktop. Functional quirks include a command-line app that uses Browserbase's voice and points visitors to the Browserbase careers page, a Trash shortcut into Chromium's garbage collector, dock feedback, and browser details that reward exploration.
 
 ## Scope
 
@@ -30,11 +31,13 @@ Build a Browserbase-branded Next.js microsite that starts on an early-2000s desk
 in:
   - Present exactly 50 foundational Chromium concepts grouped into a conceptual learning journey.
   - Give every concept a definition, compact diagram, representative Chromium source paths, related terms, and at least one primary source link.
-  - Start on an interactive early-2000s desktop with a Chromium launcher, trash, terminal, draggable icons, and clear double-click behavior.
-  - Open the glossary in a centered browser window that occupies about 80 percent of the viewport and can be closed, minimized, restored, and focused.
-  - Style the desktop with nostalgic operating-system cues and the glossary browser with a modern ChromeOS feel inside the Browserbase visual system.
+  - Start on an interactive native desktop inspired by iOS, with Chrome, Trash, and command-line launchers, draggable icons, and clear launch behavior.
+  - Open the glossary in a Chrome window that occupies about 80 percent of the viewport and can be dragged, closed, minimized, restored, and focused.
+  - Match Chrome's visible browser hierarchy with a tab strip, navigation controls, omnibox, toolbar actions, and a separate webpage region.
+  - Remove Browserbase brand assets, fonts, colors, and visual patterns. Browserbase voice may shape product copy.
   - Support search, category navigation, previous and next entry navigation, direct links, keyboard use, touch use, and narrow screens.
-  - Include a Browserbase-branded terminal Easter egg with a link to the official Browserbase careers page.
+  - Include a command-line Easter egg with Browserbase voice and a link to the official Browserbase careers page.
+  - Add restrained OS and browser quirks that respond to exploration without blocking the glossary.
   - Cite Chromium primary documentation and clearly identify the artifact as an independent Browserbase learning resource.
 out:
   - Do not scrape or reproduce the full Chromium documentation tree.
@@ -49,9 +52,9 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: The initial route renders an early-2000s desktop with Chromium, Terminal, and Trash launchers and no glossary browser already open.
+  criterion: The initial route renders a polished native desktop inspired by iOS, with Chrome, Terminal, and Trash launchers and no browser already open.
 - id: AC-2
-  criterion: Double-clicking the Chromium launcher opens a centered browser window at roughly 80 percent of the viewport, and closing it returns the user to the desktop.
+  criterion: Double-clicking the Chrome launcher opens a browser window at roughly 80 percent of the viewport, the user can drag the window without losing it beyond the usable desktop, and closing it returns the user to the desktop.
 - id: AC-3
   criterion: The glossary contains exactly 50 unique entries organized into a conceptual learning journey.
 - id: AC-4
@@ -59,15 +62,19 @@ cut:
 - id: AC-5
   criterion: A user can find an entry through text search or category navigation and move to related, previous, and next entries without returning to the index.
 - id: AC-6
-  criterion: Opening Terminal displays a Browserbase-branded command-line interaction that offers the official Browserbase careers link.
+  criterion: Opening Terminal displays a command-line interaction written in Browserbase's voice and offers the official Browserbase careers link without using Browserbase's visual system.
 - id: AC-7
-  criterion: Desktop icons can be repositioned with pointer input, every launcher is keyboard reachable, and touch users can open an app without double-clicking.
+  criterion: Desktop icons can be repositioned with pointer input, desktop windows can be dragged from their title areas, every launcher is keyboard reachable, and touch users can open an app without double-clicking.
 - id: AC-8
   criterion: The core desktop, browser, search, navigation, close, minimize, restore, and terminal flows work at representative desktop and mobile viewport sizes.
 - id: AC-9
-  criterion: The interface follows the Browserbase palette and typography, remains light-mode-first, uses no more than two font families, and passes automated accessibility checks for the primary route.
+  criterion: The interface contains no Browserbase brand assets, fonts, colors, or brand-derived visual patterns; uses no more than two system font families; and passes automated accessibility checks for the primary routes.
 - id: AC-10
   criterion: The production build succeeds and an automated content check verifies entry count, unique slugs, valid relationships, source links, and required content fields.
+- id: AC-11
+  criterion: The browser frame visibly matches Chrome's tab strip, navigation toolbar, omnibox, window controls, and webpage hierarchy; its navigation and reload controls perform the actions they claim.
+- id: AC-12
+  criterion: Trash opens the garbage-collection concept, Terminal retains its commands, the dock gives immediate launch and focus feedback, and at least one discoverable Chrome quirk works without blocking normal navigation.
 ```
 
 ## Success Metrics
@@ -89,11 +96,13 @@ cut:
 
 ## User Experience
 
-The shortest critical journey is desktop arrival, Chromium launch, glossary orientation, entry selection, concept comprehension, related-term exploration, and source handoff. The desktop interaction should reward curiosity without delaying readers who came for the reference. The browser opens immediately after user input and keeps familiar window controls. Search stays visible. Category grouping reduces scanning load while related terms keep the journey connected.
+The shortest critical journey is desktop arrival, Chrome launch, glossary orientation, entry selection, concept comprehension, related-term exploration, and source handoff. The native desktop should reward curiosity without delaying readers who came for the reference. Chrome opens immediately after user input and uses familiar controls. The draggable window stays recoverable. Search remains a webpage control rather than pretending to be the omnibox. Category grouping reduces scanning load while related terms keep the journey connected.
 
 ## Risks
 
-- A realistic desktop can become a loading screen. The Chromium launcher must remain obvious and keyboard reachable.
+- A realistic desktop can become a loading screen. The Chrome launcher must remain obvious and keyboard reachable.
+- A literal Chrome frame can create fake controls. Every visible navigation control must either work or appear clearly unavailable.
+- Window dragging can strand content. The reducer must clamp committed positions, and narrow screens must use a fixed full-screen policy.
 - Fifty entries can feel repetitive. Diagrams should use a small grammar of process, boundary, hierarchy, and pipeline shapes tied to each concept.
 - Chromium internals change. Every entry needs primary links, and claims should avoid brittle implementation trivia when the docs do not promise it.
-- Chromium and Chrome marks must not imply endorsement. The footer and about copy must state that Browserbase created the glossary independently.
+- Chromium and Chrome marks must not imply endorsement. The footer and About copy must state that Browserbase created the glossary independently.
