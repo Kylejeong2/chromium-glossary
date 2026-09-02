@@ -1,0 +1,44 @@
+"use client";
+
+import { ArrowRight } from "lucide-react";
+import type { GlossaryStage } from "@/domain/glossary";
+
+export function JourneyIndex({ stages, activeStage, onNavigate }: { stages: readonly GlossaryStage[]; activeStage?: string; onNavigate: (slug: string) => void }) {
+  const visibleStages = activeStage ? stages.filter((stage) => stage.id === activeStage) : stages;
+  return (
+    <div className="journey-index">
+      <header className="journey-hero">
+        <div>
+          <h1>The Chromium glossary</h1>
+          <p>Fifty concepts that turn a URL into pixels. Read them as a journey or jump straight to the subsystem you need.</p>
+        </div>
+        <div className="journey-hero__count"><strong>50</strong><span>foundational concepts</span></div>
+      </header>
+      <div className="journey-stages">
+        {visibleStages.map((stage) => (
+          <section className="journey-stage" key={stage.id}>
+            <header>
+              <span>{String(stages.findIndex((item) => item.id === stage.id) + 1).padStart(2, "0")}</span>
+              <div><h2>{stage.title}</h2><p>{stage.promise}</p></div>
+            </header>
+            <ol start={stage.entries[0].order}>
+              {stage.entries.map((entry) => (
+                <li key={entry.slug}>
+                  <button type="button" onClick={() => onNavigate(entry.slug)}>
+                    <span>{String(entry.order).padStart(2, "0")}</span>
+                    <strong>{entry.term}</strong>
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
+      </div>
+      <footer className="glossary-footer">
+        <p>Created independently by Browserbase for developers learning browser internals. Not official Chromium documentation.</p>
+        <p>Sources reviewed September 2, 2026.</p>
+      </footer>
+    </div>
+  );
+}

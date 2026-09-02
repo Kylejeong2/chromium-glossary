@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+prompt-log-*.md
+playwright-report/
+test-results/
 
 # debug
 npm-debug.log*
