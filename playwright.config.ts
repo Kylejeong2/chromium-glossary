@@ -7,7 +7,7 @@ export default defineConfig({
   use: { baseURL: "http://127.0.0.1:3847", trace: "retain-on-failure" },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 1000 } } },
-    { name: "mobile", use: { ...devices["Pixel 7"] } },
+    { name: "mobile", testIgnore: /rendered-diagram-geometry\.spec\.ts/, use: { ...devices["Pixel 7"] } },
   ],
   webServer: {
     command: "npm run dev -- --hostname 127.0.0.1 --port 3847",

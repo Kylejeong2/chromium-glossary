@@ -1,31 +1,33 @@
 export type AppId = "chromium" | "terminal" | "trash";
 export type Point = Readonly<{ x: number; y: number }>;
-export type Size = Readonly<{ width: number; height: number }>;
+type Size = Readonly<{ width: number; height: number }>;
 export type Rect = Readonly<Point & Size>;
 export type Workspace = Readonly<{ viewport: Size; usable: Rect; mode: "freeform" | "compact" }>;
-export type WindowPlacement = Readonly<{ kind: "floating"; frame: Rect }> | Readonly<{ kind: "maximized" | "compact"; restoreFrame: Rect }>;
+type WindowPlacement = Readonly<{ kind: "floating"; frame: Rect }> | Readonly<{ kind: "maximized" | "compact"; restoreFrame: Rect }>;
 export type ManagedWindow = Readonly<{ status: "closed" | "visible" | "minimized"; placement: WindowPlacement; z: number | null }>;
 export type DesktopState = Readonly<{ workspace: Workspace; windows: Readonly<Record<AppId, ManagedWindow>>; iconPositions: Readonly<Record<AppId, Point>>; nextZ: number }>;
-export type DesktopIntent =
+type DesktopIntent =
   | Readonly<{ type: "workspace.changed"; viewport: Size }>
   | Readonly<{ type: "app.open" | "window.focus" | "window.minimize" | "window.restore" | "window.close" | "window.maximize-toggle"; app: AppId }>
   | Readonly<{ type: "window.move"; app: AppId; frame: Rect }>
   | Readonly<{ type: "icon.move"; app: AppId; position: Point }>;
 
-export const COMPACT_BREAKPOINT = 700;
-const SHELF_HEIGHT = 42;
-const DOCK_RESERVE = 94;
+const COMPACT_BREAKPOINT = 760;
+export const TOP_BAR_HEIGHT = 30;
+const DESKTOP_EDGE_INSET = 8;
+const DESKTOP_DOCK_CLEARANCE = 92;
+export const COMPACT_DOCK_HEIGHT = 56;
 
 export function workspaceFor(viewport: Size): Workspace {
   const compact = viewport.width < COMPACT_BREAKPOINT || viewport.height < 560;
   return { viewport, mode: compact ? "compact" : "freeform", usable: compact
-    ? { x: 0, y: SHELF_HEIGHT, width: viewport.width, height: Math.max(0, viewport.height - SHELF_HEIGHT) }
-    : { x: 12, y: SHELF_HEIGHT + 10, width: Math.max(0, viewport.width - 24), height: Math.max(0, viewport.height - SHELF_HEIGHT - DOCK_RESERVE) } };
+    ? { x: 0, y: TOP_BAR_HEIGHT, width: viewport.width, height: Math.max(0, viewport.height - TOP_BAR_HEIGHT - COMPACT_DOCK_HEIGHT) }
+    : { x: 0, y: TOP_BAR_HEIGHT, width: viewport.width, height: Math.max(0, viewport.height - TOP_BAR_HEIGHT - DESKTOP_DOCK_CLEARANCE) } };
 }
 
 function initialFrame(app: AppId, workspace: Workspace): Rect {
   const desired = app === "chromium"
-    ? { width: Math.min(1280, workspace.usable.width * .84), height: workspace.usable.height * .9 }
+    ? { width: workspace.usable.width * .86, height: workspace.usable.height - 34 }
     : app === "terminal"
       ? { width: Math.min(660, workspace.usable.width * .68), height: Math.min(460, workspace.usable.height * .72) }
       : { width: Math.min(480, workspace.usable.width * .5), height: Math.min(400, workspace.usable.height * .66) };
@@ -57,15 +59,28 @@ function reflowFrame(frame: Rect, from: Workspace, to: Workspace): Rect {
 export function createDesktopState(openApp?: AppId, viewport: Size = { width: 1280, height: 800 }): DesktopState {
   const workspace = workspaceFor(viewport);
   const make = (app: AppId): ManagedWindow => ({ status: openApp === app ? "visible" : "closed", placement: placementFor(app, workspace), z: openApp === app ? 1 : null });
-  return { workspace, windows: { chromium: make("chromium"), terminal: make("terminal"), trash: make("trash") }, iconPositions: { chromium: { x: 30, y: 92 }, terminal: { x: 30, y: 210 }, trash: { x: 30, y: 328 } }, nextZ: openApp ? 2 : 1 };
+  return { workspace, windows: { chromium: make("chromium"), terminal: make("terminal"), trash: make("trash") }, iconPositions: { chromium: { x: viewport.width - 92, y: 52 }, terminal: { x: viewport.width - 92, y: 148 }, trash: { x: viewport.width - 92, y: 244 } }, nextZ: openApp ? 2 : 1 };
 }
 
 export function focusedApp(state: DesktopState): AppId | undefined {
-  return (Object.entries(state.windows) as [AppId, ManagedWindow][]).filter(([, window]) => window.status === "visible").sort(([, a], [, b]) => (b.z ?? 0) - (a.z ?? 0))[0]?.[0];
+  let focused: AppId | undefined;
+  let highestZ = -1;
+  for (const app of Object.keys(state.windows) as AppId[]) {
+    const window = state.windows[app];
+    if (window.status === "visible" && (window.z ?? -1) > highestZ) {
+      focused = app;
+      highestZ = window.z ?? -1;
+    }
+  }
+  return focused;
 }
 
 function updateWindow(state: DesktopState, app: AppId, window: ManagedWindow): DesktopState {
   return { ...state, windows: { ...state.windows, [app]: window } };
+}
+
+function sameFrame(left: Rect, right: Rect): boolean {
+  return left.x === right.x && left.y === right.y && left.width === right.width && left.height === right.height;
 }
 
 export function desktopReducer(state: DesktopState, intent: DesktopIntent): DesktopState {
@@ -79,11 +94,16 @@ export function desktopReducer(state: DesktopState, intent: DesktopIntent): Desk
       const frame = reflowFrame(oldFrame, state.workspace, workspace);
       return [app, { ...window, placement: window.placement.kind === "maximized" ? { kind: "maximized", restoreFrame: frame } : { kind: "floating", frame } }];
     })) as Record<AppId, ManagedWindow>;
-    return { ...state, workspace, windows };
+    const widthDelta = workspace.viewport.width - state.workspace.viewport.width;
+    const iconPositions = Object.fromEntries((Object.entries(state.iconPositions) as [AppId, Point][]).map(([app, point]) => [app, {
+      x: Math.max(DESKTOP_EDGE_INSET, Math.min(workspace.viewport.width - 100, point.x + widthDelta)),
+      y: Math.max(TOP_BAR_HEIGHT + 12, Math.min(workspace.viewport.height - 92, point.y)),
+    }])) as Record<AppId, Point>;
+    return { ...state, workspace, windows, iconPositions };
   }
   if (intent.type === "icon.move") {
     if (state.workspace.mode === "compact") return state;
-    const position = { x: Math.max(12, Math.min(state.workspace.viewport.width - 92, intent.position.x)), y: Math.max(SHELF_HEIGHT + 12, Math.min(state.workspace.viewport.height - 164, intent.position.y)) };
+    const position = { x: Math.max(DESKTOP_EDGE_INSET, Math.min(state.workspace.viewport.width - 100, intent.position.x)), y: Math.max(TOP_BAR_HEIGHT + 12, Math.min(state.workspace.viewport.height - 100, intent.position.y)) };
     if (position.x === state.iconPositions[intent.app].x && position.y === state.iconPositions[intent.app].y) return state;
     return { ...state, iconPositions: { ...state.iconPositions, [intent.app]: position } };
   }
@@ -93,7 +113,7 @@ export function desktopReducer(state: DesktopState, intent: DesktopIntent): Desk
   if (intent.type === "window.move") {
     if (current.status !== "visible" || current.placement.kind !== "floating" || state.workspace.mode === "compact") return state;
     const frame = clampFrame(intent.frame, state.workspace);
-    if (JSON.stringify(frame) === JSON.stringify(current.placement.frame)) return state;
+    if (sameFrame(frame, current.placement.frame)) return state;
     return updateWindow(state, intent.app, { ...current, placement: { kind: "floating", frame } });
   }
   if (intent.type === "window.maximize-toggle") {

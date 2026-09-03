@@ -12,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const entry = catalog.entry(slug);
-  return entry ? { title: `${entry.term} | The Chromium glossary`, description: entry.summary } : {};
+  return entry ? { title: entry.term, description: entry.lede.text } : {};
 }
 
 export default async function EntryPage({ params }: { params: Promise<{ slug: string }> }) {

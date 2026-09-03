@@ -7,19 +7,18 @@ export function JourneyIndex({ stages, activeStage, onNavigate }: { stages: read
   const visibleStages = activeStage ? stages.filter((stage) => stage.id === activeStage) : stages;
   return (
     <div className="journey-index">
-      <header className="journey-hero">
+      {!activeStage && <header className="journey-hero">
         <div>
-          <h1>The Chromium glossary</h1>
-          <p>Fifty concepts that turn a URL into pixels. Read them as a journey or jump straight to the subsystem you need.</p>
+          <h1>Chromium glossary</h1>
+          <p>50 concepts connect a URL to the processes, policies, and rendering work that produce a page. Follow the journey or open the subsystem you need.</p>
         </div>
-        <div className="journey-hero__count"><strong>50</strong><span>foundational concepts</span></div>
-      </header>
+      </header>}
       <div className="journey-stages">
         {visibleStages.map((stage) => (
           <section className="journey-stage" key={stage.id}>
             <header>
               <span>{String(stages.findIndex((item) => item.id === stage.id) + 1).padStart(2, "0")}</span>
-              <div><h2>{stage.title}</h2><p>{stage.promise}</p></div>
+              <div><h2>{stage.title}</h2><p>{stage.description}</p></div>
             </header>
             <ol start={stage.entries[0].order}>
               {stage.entries.map((entry) => (
@@ -37,7 +36,7 @@ export function JourneyIndex({ stages, activeStage, onNavigate }: { stages: read
       </div>
       <footer className="glossary-footer">
         <p>Created independently by Browserbase for developers learning browser internals. Not official Chromium documentation.</p>
-        <p>Sources reviewed September 2, 2026.</p>
+        <p>Sources reviewed September 3, 2026.</p>
       </footer>
     </div>
   );

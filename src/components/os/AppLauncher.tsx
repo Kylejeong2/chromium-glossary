@@ -19,13 +19,15 @@ export function AppLauncher({ label, position, icon, compact, onOpen, onMove }: 
   }
   function up(event: ReactPointerEvent<HTMLButtonElement>) {
     if (!start.current) return;
-    const moved = start.current.moved;
+    const dragStart = start.current;
+    const moved = dragStart.moved;
+    const finalPoint = { x: dragStart.position.x + event.clientX - dragStart.pointer.x, y: dragStart.position.y + event.clientY - dragStart.pointer.y };
     start.current = undefined;
-    if (preview) onMove(preview);
+    if (moved) onMove(finalPoint);
     setPreview(undefined);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     if (!moved && event.pointerType === "touch") onOpen();
   }
   const point = preview ?? position;
-  return <button type="button" className="os-launcher" style={{ left: point.x, top: point.y }} aria-label={`Open ${label}`} onClick={compact ? onOpen : undefined} onDoubleClick={onOpen} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") onOpen(); }} onPointerDown={down} onPointerMove={move} onPointerUp={up}><span className={`app-glyph app-glyph--${label.toLowerCase()}`}>{icon}</span><span>{label}</span></button>;
+  return <button type="button" className="os-launcher" style={{ left: point.x, top: point.y }} aria-label={`Open ${label === "Chromium" ? "Chrome" : label}`} onClick={compact ? onOpen : undefined} onDoubleClick={onOpen} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") onOpen(); }} onPointerDown={down} onPointerMove={move} onPointerUp={up}><span className="app-glyph">{icon}</span><span>{label}</span></button>;
 }

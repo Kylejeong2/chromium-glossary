@@ -4,6 +4,11 @@ import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import type { GlossaryEntry } from "@/domain/glossary";
 import { ConceptDiagram } from "./ConceptDiagram";
 
+function locatorLabel(locator: GlossaryEntry["sources"][number]["locator"]): string {
+  if (locator.kind === "line-range") return `Lines ${locator.start}-${locator.end}`;
+  return `${locator.kind === "heading" ? "Heading" : "Symbol"}: ${locator.value}`;
+}
+
 export function EntryArticle({ entry, previous, next, resolveTerm, onNavigate }: {
   entry: GlossaryEntry;
   previous?: GlossaryEntry;
@@ -17,34 +22,37 @@ export function EntryArticle({ entry, previous, next, resolveTerm, onNavigate }:
       <header className="entry-header">
         <span>{String(entry.order).padStart(2, "0")} of 50</span>
         <h1>{entry.term}</h1>
-        <p>{entry.summary}</p>
+        <p>{entry.lede.text}</p>
       </header>
+      <section className="definition-section">
+        <h2>How it works</h2>
+        <div>{entry.explanation.map((claim) => <p key={claim.id}>{claim.text}</p>)}</div>
+      </section>
       <ConceptDiagram diagram={entry.diagram} />
-      <div className="entry-grid">
-        <section className="definition-section">
-          <h2>How it works</h2>
-          {entry.definition.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      <div className="entry-references">
+        <section className="reference-panel">
+          <h2>Code paths</h2>
+          <ul>{entry.codePaths.map((codePath) => (
+            <li key={`${codePath.repository}:${codePath.path}`}>
+              <a href={codePath.publicUrl} target="_blank" rel="noreferrer">
+                <code>{codePath.path}</code><ExternalLink size={14} aria-hidden="true" />
+              </a>
+            </li>
+          ))}</ul>
         </section>
-        <aside>
-          <section className="reference-panel">
-            <h2>Code paths</h2>
-            <ul>{entry.codePaths.map((path) => (
-              <li key={path}>
-                <a href={`https://chromium.googlesource.com/chromium/src/+/HEAD/${path.slice(2)}`} target="_blank" rel="noreferrer">
-                  <code>{path}</code><ExternalLink size={14} aria-hidden="true" />
-                </a>
-              </li>
-            ))}</ul>
-          </section>
-          <section className="reference-panel">
-            <h2>Primary docs</h2>
-            <ul>{entry.primaryDocs.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer">{source.label}<ExternalLink size={14} /></a></li>)}</ul>
-          </section>
-        </aside>
+        <section className="reference-panel">
+          <h2>Reviewed evidence</h2>
+          <ul>{entry.sources.map((source) => <li key={source.id}>
+            <a href={source.reviewedUrl} target="_blank" rel="noreferrer">
+              <span><strong>{source.title}</strong><small>{locatorLabel(source.locator)} at {source.reviewedRevision.slice(0, 12)}</small></span>
+              <ExternalLink size={14} aria-hidden="true" />
+            </a>
+          </li>)}</ul>
+        </section>
       </div>
       <section className="related-section">
         <h2>Keep exploring</h2>
-        <div>{entry.relatedTerms.map((slug) => {
+        <div>{entry.relatedSlugs.map((slug) => {
           const related = resolveTerm(slug);
           return related ? <button type="button" key={slug} onClick={() => onNavigate(slug)}>{related.term}<ArrowRight size={14} /></button> : null;
         })}</div>

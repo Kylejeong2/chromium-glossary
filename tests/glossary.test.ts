@@ -12,16 +12,44 @@ describe("chromium glossary document", () => {
     expect(() => JSON.stringify(chromiumGlossary)).not.toThrow();
   });
 
-  it("ranks title matches ahead of definition matches", () => {
-    const results = createCatalog(chromiumGlossary).query({ text: "renderer" });
+  it("ranks title matches ahead of mechanism matches", () => {
+    const results = createCatalog(chromiumGlossary).search("renderer");
     expect(results[0].slug).toBe("renderer-process");
     expect(results.some((entry) => entry.slug === "browser-process")).toBe(true);
   });
 
-  it("filters search by learning stage", () => {
-    const results = createCatalog(chromiumGlossary).query({ text: "process", stage: "process-boundaries" });
-    expect(results.length).toBeGreaterThan(0);
-    expect(results.every((entry) => entry.order >= 6 && entry.order <= 15)).toBe(true);
+  it("searches globally regardless of the selected learning stage", () => {
+    const results = createCatalog(chromiumGlossary).search("process");
+    expect(results.some((entry) => entry.order >= 6 && entry.order <= 15)).toBe(true);
+    expect(results.some((entry) => entry.order > 15)).toBe(true);
+  });
+
+  it("rejects inferred or dangling diagram topology", () => {
+    const copy = structuredClone(chromiumGlossary) as unknown as { stages: Array<{ entries: Array<{ diagram: { edges: Array<{ to: { kind: string; id: string } }> } }> }> };
+    copy.stages[0].entries[0].diagram.edges[0].to = { kind: "node", id: "node-1" };
+    expect(validateGlossary(copy).map((issue) => issue.code)).toContain("diagram.endpoint");
+  });
+
+  it("requires every boundary node to belong to exactly one ordered region", () => {
+    const copy = structuredClone(chromiumGlossary) as unknown as {
+      stages: Array<{ entries: Array<{ diagram: { intent: { pattern: string }; groups: Array<{ nodeIds: string[] }> } }> }>;
+    };
+    const entry = copy.stages.flatMap((stage) => stage.entries).find((candidate) => candidate.diagram.intent.pattern === "boundary");
+    if (!entry) throw new Error("Expected a boundary diagram fixture");
+    entry.diagram.groups[0].nodeIds = entry.diagram.groups[0].nodeIds.slice(1);
+    expect(validateGlossary(copy).map((issue) => issue.code)).toContain("diagram.boundary.membership");
+  });
+
+  it("keeps unsafe concepts out of the focus tone", () => {
+    const copy = structuredClone(chromiumGlossary) as unknown as { stages: Array<{ entries: Array<{ diagram: { nodes: Array<{ label: string; tone: string }> } }> }> };
+    copy.stages[5].entries[0].diagram.nodes[0] = { ...copy.stages[5].entries[0].diagram.nodes[0], label: "Unsafe implementation", tone: "focus" };
+    expect(validateGlossary(copy).map((issue) => issue.code)).toContain("diagram.negative-focus");
+  });
+
+  it("keeps unsafe groups out of the focus tone", () => {
+    const copy = structuredClone(chromiumGlossary) as unknown as { stages: Array<{ entries: Array<{ diagram: { groups: Array<{ label: string; tone: string }> } }> }> };
+    copy.stages[1].entries[0].diagram.groups[0] = { ...copy.stages[1].entries[0].diagram.groups[0], label: "Unsafe product boundary", tone: "focus" };
+    expect(validateGlossary(copy).map((issue) => issue.code)).toContain("diagram.negative-focus");
   });
 
   it("traverses the authored journey", () => {

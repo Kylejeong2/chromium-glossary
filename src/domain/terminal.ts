@@ -1,6 +1,6 @@
 export const CAREERS_URL = "https://www.browserbase.com/careers";
 
-export type TerminalResult = Readonly<{
+type TerminalResult = Readonly<{
   lines: readonly string[];
   action?: "clear" | "exit";
   link?: Readonly<{ label: string; href: string }>;

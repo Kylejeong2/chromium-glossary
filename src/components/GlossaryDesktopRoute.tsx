@@ -1,11 +1,14 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import type { GlossaryDocument } from "@/domain/glossary";
+import { usePathname, useSearchParams } from "next/navigation";
+import { parseGlossaryPath, type GlossaryDocument } from "@/domain/glossary";
 import { ChromiumGlossary } from "./ChromiumGlossary";
 
 export function GlossaryDesktopRoute({ document }: { document: GlossaryDocument }) {
   const pathname = usePathname();
-  const match = pathname.match(/^\/glossary\/([^/]+)$/);
-  return <ChromiumGlossary document={document} initialEntry={match?.[1] ?? null} />;
+  const searchParams = useSearchParams();
+  const route = parseGlossaryPath(pathname, searchParams.toString());
+  const requestedStage = route.open ? route.stage : undefined;
+  const initialStage = document.stages.some((stage) => stage.id === requestedStage) ? requestedStage : undefined;
+  return <ChromiumGlossary document={document} initialEntry={route.open ? route.slug ?? null : undefined} initialStage={initialStage} />;
 }

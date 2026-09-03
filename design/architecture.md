@@ -1,17 +1,17 @@
-# Chromium glossary native UI architecture
+# Chromium glossary fidelity architecture
 
-This document implements `specs/chromium-glossary.product-spec.md` revision 2. It replaces the former Browserbase visual system with Lattice OS and an integrated Chrome window.
+This document implements `specs/chromium-glossary.product-spec.md` revision 9. It pairs a macOS-inspired glass desktop with a current Chrome frame and a Chrome-native Chromium glossary.
 
 ## Product shape
 
-The experience has four layers:
+The experience has four boundaries:
 
-1. Next.js routes choose whether the desktop, glossary index, or a glossary entry opens first.
-2. A desktop session coordinates window lifecycle, route effects, and compound app outcomes.
-3. Lattice OS renders the native desktop, app launchers, dock, and bounded windows.
-4. Chrome hosts the glossary application. The glossary owns search, stages, entries, diagrams, and sources.
+1. Next.js routes decide whether the desktop, glossary index, or a glossary entry opens first.
+2. `ChromiumGlossary` coordinates the desktop reducer, observed route history, viewport, and compound app outcomes.
+3. The OS layer renders the menu bar, widgets, launchers, glass dock, native windows, and bounded pointer interaction.
+4. Chrome hosts the glossary application. The glossary owns query, stages, entries, diagrams, sources, and content-aware navigation.
 
-The route and the validated glossary remain authoritative. The OS does not own glossary content. Chrome does not own concept search.
+The route and validated glossary document remain authoritative. The OS does not own glossary content. Chrome does not own concept search. Transient browser popovers remain local to the Chrome frame.
 
 ## Caller view
 
@@ -23,55 +23,75 @@ Routes keep one public client entry point:
 <ChromiumGlossary document={chromiumGlossary} initialEntry="site-isolation" />
 ```
 
-The composition root sends product intents through one session:
+The composition root uses the reducer directly and converts UI events into domain intents:
 
 ```tsx
-const session = useGlossaryDesktopSession({ document, initialEntry });
-
-return (
-  <LatticeDesktop snapshot={session.snapshot} send={session.send}>
-    <ChromeWindow window={session.snapshot.desktop.windows.chromium} onIntent={session.send}>
-      <GlossaryApp
-        document={document}
-        selectedSlug={session.snapshot.selectedSlug}
-        onNavigate={(slug) => session.send({ type: "glossary.navigate", slug })}
-      />
-    </ChromeWindow>
-  </LatticeDesktop>
+const [desktop, dispatch] = useReducer(
+  desktopReducer,
+  initialEntry !== undefined ? "chromium" : undefined,
+  createDesktopState,
 );
+
+<ChromeWindow
+  window={desktop.windows.chromium}
+  workspace={desktop.workspace}
+  onMove={(frame) => dispatch({ type: "window.move", app: "chromium", frame })}
+>
+  <GlossaryApp catalog={catalog} selectedSlug={initialEntry ?? undefined} />
+</ChromeWindow>
 ```
 
-The pointer controller keeps the drag preview local and commits one bounded frame:
+The drag controller owns its pointer preview and commits one bounded frame:
 
 ```tsx
 const drag = useBoundedWindowDrag({
-  frame: window.frame,
-  workspace: snapshot.desktop.workspace,
-  onCommit: (frame) => send({ type: "window.move", app, frame }),
+  frame: windowFrame(window, workspace),
+  workspace,
+  onCommit: onMove,
 });
 ```
 
-## Visual contract
+## Three-layer visual contract
 
-Lattice OS is a fictional touch-native desktop. It borrows direct manipulation, generous hit areas, rounded app tiles, restrained translucent system material, and a centered dock from iOS and iPadOS. It does not reproduce Apple branding or the prior Browserbase design.
+### macOS-inspired glass shell
 
-- The wallpaper uses CSS and SVG arcs over a quiet neutral field. The finished interface has no Three.js dependency.
-- The interface uses the system sans-serif stack. Terminal and code use the system monospace stack.
-- A compact status shelf shows the OS name, focused app, local time, and honest system status.
-- Three launchers open Chrome, Terminal, and Trash. The dock always contains the same three apps and shows open and focused state.
-- Native Terminal and Trash windows share one frame. Chrome has its own frame.
-- Focus changes depth and title contrast. Content contrast does not change.
-- Motion acknowledges launch, focus, minimize, restore, and dock activity. Reduced motion removes travel and overshoot.
+- An original, locally served warm glass-ribbon wallpaper fills the viewport with `cover` cropping.
+- A fixed 30-pixel translucent menu bar places the active app and familiar menu labels at the start and honest system status at the end.
+- A centered 77-pixel glass dock contains the three real apps, a decorative launchpad tile, and clear open and focus state.
+- Chromium, Terminal, and Trash shortcuts occupy an upper-right desktop grid. Pointer users select with one click and launch with two; touch and keyboard users launch directly.
+- Two quiet glass widgets make the empty desktop feel inhabited without introducing fake applications.
+- Native windows use translucent title bars, left-side traffic-light controls, and a recoverable drag surface.
 
-Chrome uses one integrated frame. It has no outer native titlebar. Its tab strip includes the window controls, one real tab, and its close control. The toolbar contains Back, Forward, Reload, the omnibox, the active primary-source action, and an overflow menu. Unsupported multi-tab, profile, extension, and account features do not appear.
+### Current Chrome in the simulated desktop
 
-The web page starts below Chrome's toolbar. Its header contains the glossary title, concept search, and Chromium documentation link. Search never uses the omnibox.
+- Chrome is one client-side-decorated window. It is not wrapped in another native title bar.
+- Source-derived non-touch geometry is the baseline: 41-pixel tab strip, 35-pixel active tab, 46-pixel toolbar, 34-pixel controls, and 34-pixel omnibox.
+- The selected tab is a detached rounded rectangle that uses the toolbar fill and visually joins the white toolbar.
+- The far-left strip owns macOS-style close, minimize, and maximize or restore controls.
+- Back, Forward, Reload, Address, tab close, tab details, and More expose only states and actions they actually support.
+- The official open-source Chromium mark replaces the CSS approximation.
+- Browserbase red never appears in the Chrome frame. Chrome blue is reserved for native browser focus behavior.
 
-## Core types
+### Chromium glossary webpage
+
+- The webpage remains visibly separate below browser chrome.
+- Its content language follows current Chrome Settings and Chrome Material conventions: Chrome blue interactions, pale `#f8fafd` and white surfaces, an exact 56-pixel content toolbar, 8-pixel cards, 20-pixel section insets, restrained elevation, and 48-to-64-pixel rows.
+- A 266-pixel icon navigator is present when the Chrome content container is wide enough. It collapses based on container width, not only viewport width.
+- Index, entry, and search content use the Chromium-defined 96-percent centered card rule with a 680-pixel maximum.
+- Entry reading surfaces remain unpatterned and use a readable measure. Source paths, docs, related concepts, and previous or next navigation stay close to their context.
+- Browserbase Grey 900 `#46639f`, Grey 200 `#f0f4f8`, and red `#ff4500` are scoped to custom diagrams under `.concept-diagram`; red marks only a sourced positive focus or active path.
+- Official Chromium diagrams appear only on semantically matching entries with alt text, caption, source, intrinsic dimensions, and a narrow-screen policy.
+
+## Typography and assets
+
+Self-hosted Inter Variable supplies every rendered surface outside custom concept diagrams, including shell labels, browser chrome, article copy, code paths, Terminal, and controls. Self-hosted GT Standard Mono is scoped to `.concept-diagram` labels, where its generated metrics also drive deterministic geometry. No Browserbase diagram font or color token may leak into the surrounding product.
+
+All external assets are copied locally. `public/assets/ASSET_SOURCES.md` records the exact upstream URL, revision or release, license, modification, and use for the font, wallpaper, product mark, OS icons, and any documentation diagram. Images may not be copied from screenshots, search thumbnails, or unverified hotlinks.
+
+## Core desktop model
 
 ```ts
 export type AppId = "chromium" | "terminal" | "trash";
-
 export type Point = Readonly<{ x: number; y: number }>;
 export type Size = Readonly<{ width: number; height: number }>;
 export type Rect = Readonly<Point & Size>;
@@ -84,96 +104,88 @@ export type Workspace = Readonly<{
 
 export type WindowPlacement =
   | Readonly<{ kind: "floating"; frame: Rect }>
-  | Readonly<{ kind: "maximized"; restoreFrame: Rect }>
-  | Readonly<{ kind: "compact"; restoreFrame: Rect }>;
+  | Readonly<{ kind: "maximized" | "compact"; restoreFrame: Rect }>;
 
 export type ManagedWindow = Readonly<{
   status: "closed" | "visible" | "minimized";
   placement: WindowPlacement;
   z: number | null;
 }>;
-
-export type DesktopState = Readonly<{
-  workspace: Workspace;
-  windows: Readonly<Record<AppId, ManagedWindow>>;
-  iconPositions: Readonly<Record<AppId, Point>>;
-  nextZ: number;
-}>;
-
-export type DesktopIntent =
-  | Readonly<{ type: "app.open"; app: AppId }>
-  | Readonly<{ type: "window.focus"; app: AppId }>
-  | Readonly<{ type: "window.minimize"; app: AppId }>
-  | Readonly<{ type: "window.restore"; app: AppId }>
-  | Readonly<{ type: "window.close"; app: AppId }>
-  | Readonly<{ type: "window.move"; app: AppId; frame: Rect }>
-  | Readonly<{ type: "window.maximize-toggle"; app: AppId }>
-  | Readonly<{ type: "icon.move"; app: AppId; position: Point }>
-  | Readonly<{ type: "glossary.navigate"; slug?: string }>
-  | Readonly<{ type: "chrome.back" | "chrome.forward" | "chrome.reload" }>
-  | Readonly<{ type: "chrome.address-submit"; value: string }>
-  | Readonly<{ type: "trash.explain-gc" }>;
 ```
 
-The session exposes a snapshot and `send`. Pathname and viewport observations remain private adapter inputs. Query and active stage remain local to `GlossaryApp` because they do not coordinate the OS, route, or Chrome.
+The reducer remains the authority for visibility, focus, z-order, committed geometry, maximize or restore, compact reflow, and desktop shortcut positions. Browser menus, navigator disclosure, search query, and active stage are presentation state and do not enter this reducer.
 
 ## Window geometry
 
-The desktop reducer owns committed lifecycle, focus, z-order, and geometry. The drag hook owns only the transient pointer preview.
-
-- `freeform` applies when the usable workspace can fit Chrome at a readable width.
-- A floating window stays completely within `workspace.usable`.
-- The titlebar or empty tab-strip region starts a drag. Controls, tabs, fields, links, and content do not.
-- Pointer capture keeps one active pointer until release, cancellation, or lost capture.
-- The reducer receives one final frame after a drag.
-- Double-clicking a drag area toggles maximize.
-- A keyboard move command uses Arrow keys, Shift with an Arrow key, Enter, and Escape.
-- Repeated focus, close, minimize, and identical move intents return unchanged state when possible.
-- Compact mode ignores freeform movement and renders the focused app full screen. Returning to freeform restores a constrained floating frame.
-- Arbitrary resizing is out of scope.
+- The system menu bar consumes the first 30 vertical pixels.
+- A 92-pixel lower band is reserved for the centered dock in freeform mode. Floating and maximized windows never cover it.
+- A floating Chromium window starts at roughly 86 percent of the available viewport width and 90 percent of the usable height, centered in the dock-adjusted workspace.
+- A floating frame remains completely inside `workspace.usable`.
+- The empty tab-strip region or native titlebar starts a drag. Controls, tabs, fields, links, and content do not.
+- Pointer capture owns one drag until release, cancellation, or lost capture. The reducer receives the bounded final frame.
+- Double-clicking a valid drag surface toggles maximize.
+- Compact mode applies below the shared width or height threshold, ignores freeform movement, and fills the usable area below the panel. Returning to freeform restores a clamped floating frame.
+- CSS and reducer compact conditions must agree for both width and height. Arbitrary resizing remains out of scope.
 
 ## Chrome behavior
 
 | Control | Behavior |
 | --- | --- |
-| Back | Uses observed in-app route history and waits for pathname reconciliation. |
-| Forward | Uses the observed forward entry and waits for pathname reconciliation. |
-| Reload | Performs a real document reload while preserving the current URL. |
-| Omnibox | Displays and accepts only the glossary index, a known glossary slug, or the same local origin. Invalid input stays in place and receives an inline explanation. |
-| Tab close | Closes Chrome and returns to `/`. |
-| Primary source | Opens the entry's first primary source, or the Chromium docs index from glossary home. |
-| Overflow | Offers only working actions such as Reload, Copy address, and Chromium docs. |
+| Back | Moves through the observed in-app route journal when a prior route exists. |
+| Forward | Moves through the journal when a forward route exists. |
+| Reload | Performs a real document reload at the current route. |
+| Address | Displays and accepts the glossary index, a known glossary slug, or the same local origin. Invalid input remains visible with a specific explanation. |
+| Tab close | Closes Chromium and returns to `/`. |
+| Tab details | Opens the existing build or About disclosure for the one real tab. |
+| More | Contains only implemented actions such as Reload, Copy address, source, Chromium docs, and About. |
+| Window controls | Minimize, maximize or restore, and close dispatch existing desktop intents. |
 
-The route is the source of truth for the selected entry. The history journal exists only to tell Chrome whether Back and Forward are available. It does not override the observed route.
+The route is authoritative for the selected entry. The local history journal only models the Back and Forward affordances for routes observed inside this simulation.
+
+## Responsive policy
+
+### Wide desktop
+
+- The 30-pixel menu bar, centered 77-pixel dock, shortcuts, widgets, and floating windows remain visible.
+- Chrome opens below the menu bar and above the dock with enough wallpaper visible to preserve the OS premise.
+- The glossary uses its grouped navigator and one centered Settings-style content column.
+
+### Constrained window
+
+- Container queries respond to the draggable Chrome window's content width.
+- The grouped navigator collapses before it starves the article.
+- Entry references remain in the centered single-column reading flow.
+
+### Compact or short viewport
+
+- Any opened app fills the usable area below the 30-pixel menu bar and above the compact dock. The floating-window fiction and outer shadow disappear.
+- Essential Chrome controls remain visible with 40-to-44-pixel targets; nonessential actions move into More.
+- The glossary navigator becomes a real disclosure surface, the article is single-column, and diagrams scroll only when semantic labels cannot collapse safely.
+- Desktop touch launch remains one tap. No content is hidden under the panel or dock.
 
 ## App quirks
 
-- Terminal preserves `help`, `about`, `careers`, `clear`, and `exit`. Its copy may use Browserbase's voice. Its visual system remains neutral.
-- Trash explains garbage collection. Its action closes Trash, opens or restores Chrome, and navigates to `garbage-collection` as one outcome.
-- The dock gives immediate launch, focus, and open-state feedback.
-- Chrome, Terminal, Trash, and desktop launchers can move in freeform mode.
-- No fake notifications, sound effects, games, or dead browser controls ship.
+- Terminal retains `help`, `about`, `careers`, `clear`, and `exit`. Its copy may use Browserbase voice; its visual system remains host-neutral and uses Inter.
+- Trash explains garbage collection. Its action closes Trash, opens or restores Chromium, and navigates to `garbage-collection` as one outcome.
+- Dock state immediately reflects closed, open, minimized, and focused applications.
+- The existing Chrome details or About interaction remains the contained browser quirk.
+- Broader launcher, window tiling, sound, and notification simulations remain deferred until the core fidelity contract is proven.
 
 ## Component map
 
 ```text
 src/components/ChromiumGlossary.tsx
-src/application/useGlossaryDesktopSession.ts
 src/application/navigation.ts
 
-src/components/os/LatticeDesktop.tsx
+src/components/os/Desktop.tsx
 src/components/os/AppLauncher.tsx
 src/components/os/NativeAppWindow.tsx
 src/components/os/Dock.tsx
 src/components/os/useBoundedWindowDrag.ts
 
 src/components/chrome/ChromeWindow.tsx
-src/components/chrome/ChromeTabStrip.tsx
-src/components/chrome/ChromeToolbar.tsx
-src/components/chrome/Omnibox.tsx
 
 src/components/glossary/GlossaryApp.tsx
-src/components/glossary/GlossaryToolbar.tsx
 src/components/glossary/JourneyRail.tsx
 src/components/glossary/JourneyIndex.tsx
 src/components/glossary/EntryArticle.tsx
@@ -186,43 +198,32 @@ src/domain/glossary.ts
 src/domain/terminal.ts
 ```
 
-Small files may stay combined when splitting them adds a forwarding layer. These paths describe ownership, not a required file count.
+Filenames describe current ownership. Legacy Lattice naming has been removed.
 
-## Removal and migration
+## Migration order
 
-1. Extend and test desktop geometry before replacing visible components.
-2. Split Chrome from the glossary application.
-3. Build the Lattice desktop, dedicated Chrome frame, and native app frame against the tested state model.
-4. Move Terminal and Trash into the native frame.
-5. Replace the global stylesheet and system font setup.
-6. Remove `ComputerScene`, `AppWindow`, `DesktopIcon`, and `GlossaryBrowser` after callers migrate.
-7. Remove Three.js, GT fonts, `/public/brand`, Browserbase visual tokens, and obsolete CSS after `rg` proves that no consumer remains.
-8. Update browser tests for drag bounds, Chrome controls, quirks, compact mode, direct routes, and accessibility.
+1. Record reference and asset provenance, then update the spec and architecture.
+2. Import the self-hosted font, wallpaper, Chromium mark, OS icons, and any semantic diagram.
+3. Replace the desktop silhouette and update reducer geometry with its tests.
+4. Rebuild Chrome against the exact source-derived hierarchy while preserving every action and accessible name.
+5. Restyle the glossary with grouped navigation, restrained grid use, readable type, and semantic imagery.
+6. Align container and viewport behavior at wide, narrow, short, and touch sizes.
+7. Remove legacy Lattice selectors, CSS logos, font stacks, fake glyphs, unused assets, and dead branches after callers migrate.
 
 ## Verification boundary
 
-The final gate includes these checks:
+- Unit tests cover bounded frames, left-dock and top-panel geometry, maximize or restore, compact reflow, lifecycle idempotence, and icon movement.
+- Navigation tests cover public paths, local address input, route history, direct loads, and invalid input.
+- Structural browser tests prove the 30-pixel menu bar, centered 77-pixel dock, 41-pixel tab strip, 34-pixel omnibox, left-side traffic-light controls, locally loaded assets, and the absence of the CSS-built logo.
+- Computed-style sampling proves every visible class of text outside custom diagrams uses Inter as its first family, while `.concept-diagram` alone uses GT Standard Mono and the Browserbase diagram scale.
+- Playwright covers launch, search, entry navigation, dragging and bounds, minimize, restore, close, Back, Forward, Reload, Terminal, Trash, dock state, responsive navigation, and accessibility.
+- Asset verification proves every shipped external asset has a provenance record and loads locally.
+- Live external Chrome review compares desktop arrival, Chromium index, entry and diagram, browser menus and errors, layered native windows, short desktop, mobile portrait, mobile landscape, keyboard, zoom, and reduced motion.
 
-- Desktop unit tests cover bounded frames, maximize and restore, compact reflow, idempotent lifecycle, and icon movement.
-- Navigation tests cover public paths, local omnibox input, route history, direct loads, and invalid input.
-- Playwright covers launch, search, entry navigation, window drag, minimize, restore, close, Chrome Back, Forward, Reload, Terminal, Trash, dock state, and compact mode.
-- Axe checks the desktop, Chrome, one direct entry, Terminal, Trash, and open Chrome menus at desktop and mobile sizes.
-- The content verifier still proves seven stages, 50 unique entries, valid relationships, required fields, source links, and all four diagram kinds.
-- Live review compares the integrated frame with the dated current Chrome reference and checks the whole desktop at desktop and mobile sizes.
+Build output and automated tests are necessary but do not prove visual fidelity. The completion gate is the actual Chrome render and a requirement-by-requirement evidence audit.
 
 ## Synthesis decision
 
-Candidate B is the base. It scored 29 out of 30 against Candidate A's 26 out of 30. Candidate B won on honest Chrome controls, fully bounded geometry, one deep session interface, and explicit mobile behavior.
+The selected direction now follows the user's macOS 27 simulator reference for the host environment, using its measured menu-bar, dock, window-radius, and traffic-light proportions with an original wallpaper. Chromium's browser constants, the grouped navigator, container-aware collapse, semantic image policy, asset provenance, and truthful-browser rule remain intact.
 
-The synthesis adds Candidate A's keyboard window movement, injected real reload behavior, and rule that routing never waits for animation. It keeps query and stage state inside `GlossaryApp` and keeps pathname and viewport events private.
-
-The design rejects Candidate A's duplicate session methods, permanently disabled new-tab control, exact-term omnibox shortcut, partially off-screen window policy, and extra clock interaction. It also rejects generic window variants, a multi-tab engine, state persistence, extra apps, and decorative WebGL.
-
-## Tradeoffs
-
-- The design uses a dedicated Chrome frame and a separate native frame to avoid double browser chrome.
-- The design models one real tab and omits unsupported multi-tab controls.
-- The design commits geometry once per drag to keep the reducer authoritative without making pointer movement feel delayed.
-- The design supports fixed sizes and maximize, but not arbitrary resizing.
-- The design uses a small observed history journal so Chrome never claims unrelated browser history.
-- The design drops Three.js because the native desktop no longer needs a decorative runtime.
+The design rejects the Plasma bottom panel, OS-level Browserbase red, an early Activities or calendar feature, a glossary rebrand, macOS controls, decorative WebGL, a second native wrapper around Chrome, unsupported multi-tab UI, persistent fake system instructions, and grids under long-form reading text.

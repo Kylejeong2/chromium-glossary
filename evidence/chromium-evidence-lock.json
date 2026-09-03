@@ -1,0 +1,2570 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-03T09:41:08.071Z",
+  "sources": [
+    {
+      "sourceId": "source-beginframe",
+      "entrySlug": "beginframe",
+      "repository": "chromium",
+      "path": "//components/viz/common/frame_sinks/begin_frame_args.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common/frame_sinks/begin_frame_args.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "viz::BeginFrameArgs"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "a1a2a5b8e0dca634ac2fa8f2766e427bf1808f7bc61d6e848ddba054d9381451"
+    },
+    {
+      "sourceId": "source-beginframe-2",
+      "entrySlug": "beginframe",
+      "repository": "chromium",
+      "path": "//components/viz/common/frame_sinks/begin_frame_source.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common/frame_sinks/begin_frame_source.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "viz::BeginFrameSource"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "dbf1d20e53121bf32f56ac1dd51c0f29689b607774818a21ac8f44a8f13d7815"
+    },
+    {
+      "sourceId": "source-blink",
+      "entrySlug": "blink",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "core/"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "79631a9d4406a80517b1d94c695d84b18de1f7b047044bcb4114bcb2a07067f9"
+    },
+    {
+      "sourceId": "source-browser-process",
+      "entrySlug": "browser-process",
+      "repository": "chromium",
+      "path": "//docs/process_model_and_site_isolation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/process_model_and_site_isolation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Process Model and Site Isolation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5a371fa56628822f38946d32ef5ce291e07ff74c1fb5a53b1eaac0249fe41bab"
+    },
+    {
+      "sourceId": "source-browser-ui-views",
+      "entrySlug": "browser-ui-views",
+      "repository": "chromium",
+      "path": "//docs/ui/views/overview.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/ui/views/overview.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Widgets"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "daec3f13d532c68a601ec3e9cb3050e6e73316d2daae48502ecfc9d5dde69746"
+    },
+    {
+      "sourceId": "source-chromium-vs-chrome",
+      "entrySlug": "chromium-vs-chrome",
+      "repository": "chromium",
+      "path": "//docs/chromium_browser_vs_google_chrome.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/chromium_browser_vs_google_chrome.md",
+      "locator": {
+        "kind": "heading",
+        "value": "The Difference between Google Chrome and Chromium on Linux"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "0450a80d3a07e04970e452b2d43209f612c4a3adab43f5ca2361ff044bb796cb"
+    },
+    {
+      "sourceId": "source-compositing",
+      "entrySlug": "compositing",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/compositing/paint_artifact_compositor.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/compositing/paint_artifact_compositor.cc",
+      "locator": {
+        "kind": "symbol",
+        "value": "blink::PaintArtifactCompositor"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "fcbcdaad584d420beace6b9ea6212e478a814661f1cd50904c78672e2fa83c86"
+    },
+    {
+      "sourceId": "source-content-layer",
+      "entrySlug": "content-layer",
+      "repository": "chromium",
+      "path": "//content/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Content API"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "8d1c0a49158c6224af3a0c9462581d63c76b796e8b3fc939d80972cf22040b23"
+    },
+    {
+      "sourceId": "source-cookies",
+      "entrySlug": "cookies",
+      "repository": "chromium",
+      "path": "//net/cookies/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/cookies/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Life of a cookie"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "7d97ba8b37183bf88b9727573bc8d8c7999e1f6f74508a9c24232f2b500296a3"
+    },
+    {
+      "sourceId": "source-document-lifecycle",
+      "entrySlug": "document-lifecycle",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/dom/document_lifecycle.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/dom/document_lifecycle.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "blink::DocumentLifecycle"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "9309aff25a508bfeb2d7b10d1c5c3d47cd21a4d83d5eba6423b680ec09a4f54c"
+    },
+    {
+      "sourceId": "source-dom",
+      "entrySlug": "dom",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/dom/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/dom/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "DOM"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "ba68475e469ceb59a539e1b03a213ce92e043182d48eddae49bdb279f24203a2"
+    },
+    {
+      "sourceId": "source-event-loop",
+      "entrySlug": "event-loop",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/scheduler/TaskSchedulingInBlink.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/scheduler/TaskSchedulingInBlink.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Scheduling policies"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "1bcbdbd9cad1caae87d26272b17501eb2acd6c7a8ab845aa2b158d72036443b8"
+    },
+    {
+      "sourceId": "source-frame-tree",
+      "entrySlug": "frame-tree",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/frame_tree.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/frame_tree.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::FrameTree"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "945cc350a650dd031e509c67792b71ed747e7f5a13b3233bfc01158d85b01716"
+    },
+    {
+      "sourceId": "source-garbage-collection",
+      "entrySlug": "garbage-collection",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/heap/BlinkGCAPIReference.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/heap/BlinkGCAPIReference.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Tracing"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "653b9603fbb42969a305ac4a1b65514782d6ae10cdf5127f67389f96a3617c7b"
+    },
+    {
+      "sourceId": "source-gpu-process",
+      "entrySlug": "gpu-process",
+      "repository": "chromium",
+      "path": "//gpu/command_buffer/service/command_buffer_service.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gpu/command_buffer/service/command_buffer_service.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "gpu::CommandBufferService"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "bbe90c26c73e95a787d6094fc6bd8506faa216222158bbd498e234082399034b"
+    },
+    {
+      "sourceId": "source-gpu-process-2",
+      "entrySlug": "gpu-process",
+      "repository": "chromium",
+      "path": "//gpu/ipc/service/gpu_channel.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gpu/ipc/service/gpu_channel.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "gpu::GpuChannel"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "226465ea2799de262328529c452f01544b83266f93792a6bb2f3f393fb0b9b85"
+    },
+    {
+      "sourceId": "source-http-cache",
+      "entrySlug": "http-cache",
+      "repository": "chromium",
+      "path": "//net/http/http_cache.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/http/http_cache.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "net::HttpCache"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "554c911975cd317c373e080bc5eef83b132a2766fa7d1ce846917aeba18bb651"
+    },
+    {
+      "sourceId": "source-isolate-and-context",
+      "entrySlug": "isolate-and-context",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings/core/v8/V8BindingDesign.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings/core/v8/V8BindingDesign.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Isolate"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "d0c0a624208beca5851bbb5ecef183a53701ee68739f96f35ec0a18429ebb127"
+    },
+    {
+      "sourceId": "source-layout",
+      "entrySlug": "layout",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/layout/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/layout/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Blink Layout"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "7ff6044e0e2623ac2a22831c3d273f7603c6337559561eee5fd8e2c54df6a5d3"
+    },
+    {
+      "sourceId": "source-mojo",
+      "entrySlug": "mojo",
+      "repository": "chromium",
+      "path": "//docs/mojo_and_services.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/mojo_and_services.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Mojo Terminology"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "9f493774958d0e5b4fc8d0bcf2dd12369d69531fb620cf04daeb7016bfb05f7c"
+    },
+    {
+      "sourceId": "source-multi-process-architecture",
+      "entrySlug": "multi-process-architecture",
+      "repository": "chromium",
+      "path": "//docs/process_model_and_site_isolation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/process_model_and_site_isolation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Process Model and Site Isolation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5a371fa56628822f38946d32ef5ce291e07ff74c1fb5a53b1eaac0249fe41bab"
+    },
+    {
+      "sourceId": "source-navigation",
+      "entrySlug": "navigation",
+      "repository": "chromium",
+      "path": "//docs/navigation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/navigation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Navigation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "70776f01569bb4938073fdf9dfe13c5eff5df9df44b176d3927caf1a108a70b4"
+    },
+    {
+      "sourceId": "source-navigation-throttle",
+      "entrySlug": "navigation-throttle",
+      "repository": "chromium",
+      "path": "//content/public/browser/navigation_throttle.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/navigation_throttle.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::NavigationThrottle"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "bb3cf54b55947bb42b61bc8f680221301a8f91b00a7db1b215f6bdd5fd0eb280"
+    },
+    {
+      "sourceId": "source-network-isolation-key",
+      "entrySlug": "network-isolation-key",
+      "repository": "chromium",
+      "path": "//net/base/network_isolation_key.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/base/network_isolation_key.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "net::NetworkIsolationKey"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "562de4fcd45f225e9e68575a9326fe0557c19d4f8c83175cf40284e8246d6eca"
+    },
+    {
+      "sourceId": "source-network-isolation-key-2",
+      "entrySlug": "network-isolation-key",
+      "repository": "chromium",
+      "path": "//net/base/network_anonymization_key.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/base/network_anonymization_key.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "net::NetworkAnonymizationKey"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "3a2eda70c7103d45d6a7605ad7d60ebdc925fff718c5c5de0baeffec8df01355"
+    },
+    {
+      "sourceId": "source-network-service",
+      "entrySlug": "network-service",
+      "repository": "chromium",
+      "path": "//services/network/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Network Service"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "67367eb9e2eccc4848b747cfa7eda72452c208a527dc2aec1ae072d74c43af5e"
+    },
+    {
+      "sourceId": "source-origin-and-site",
+      "entrySlug": "origin-and-site",
+      "repository": "chromium",
+      "path": "//docs/security/origin-vs-url.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/security/origin-vs-url.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Use origin (rather than URL) for security decisions."
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "0c47e86a5a5b9f7b2d21a7732d2d74fcd872ac4a2250571c8a44dd6fb2e1fd93"
+    },
+    {
+      "sourceId": "source-origin-and-site-2",
+      "entrySlug": "origin-and-site",
+      "repository": "chromium",
+      "path": "//net/base/schemeful_site.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/base/schemeful_site.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "net::SchemefulSite"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "d1df9e72dd595b76cc6929425ac592c4432f0e4106ed2c9fb2c643de554a3d8e"
+    },
+    {
+      "sourceId": "source-ozone",
+      "entrySlug": "ozone",
+      "repository": "chromium",
+      "path": "//docs/ozone_overview.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/ozone_overview.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Ozone Overview"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "dc0d87478e75813e8ab3271e4cc4429478d8739da6728a2512fc4e580561d2c3"
+    },
+    {
+      "sourceId": "source-paint",
+      "entrySlug": "paint",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Paint"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "f3ebefec81bdc981af1e37f9c8403c75fca276b91460c9acacd53df3f03ace0d"
+    },
+    {
+      "sourceId": "source-paint-artifact",
+      "entrySlug": "paint-artifact",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/paint/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/paint/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Paint artifact"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "962fcef333380f61773de12d8f05ff02858828a381bce883a5fd5f383e7ae948"
+    },
+    {
+      "sourceId": "source-paint-invalidation",
+      "entrySlug": "paint-invalidation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Paint invalidation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "f3ebefec81bdc981af1e37f9c8403c75fca276b91460c9acacd53df3f03ace0d"
+    },
+    {
+      "sourceId": "source-process-lock",
+      "entrySlug": "process-lock",
+      "repository": "chromium",
+      "path": "//content/browser/process_lock.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/process_lock.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::ProcessLock"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "a3173e2a63d35cc5b4c156e010b0384b16da95e10af780979fe8077602881bd6"
+    },
+    {
+      "sourceId": "source-property-trees",
+      "entrySlug": "property-trees",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint/paint_property_tree_builder.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint/paint_property_tree_builder.cc",
+      "locator": {
+        "kind": "symbol",
+        "value": "blink::PaintPropertyTreeBuilder"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5ed8e7d3cdcfa4eb30916a12e44da78b93b722bfad397db86742ad4d822b35fc"
+    },
+    {
+      "sourceId": "source-rasterization",
+      "entrySlug": "rasterization",
+      "repository": "chromium",
+      "path": "//docs/how_cc_works.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/how_cc_works.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Raster and tile management"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "0d11f78b53aa8fe6bba67d4ea0b38163aab918fbcc17460822d60c18af817593"
+    },
+    {
+      "sourceId": "source-render-frame-host",
+      "entrySlug": "render-frame-host",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_frame_host_manager.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_frame_host_manager.cc",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::RenderFrameHostManager"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "18152557bd1c45aeaac08a793b8fb16919ddc2ea260729007ebc2f04f922d335"
+    },
+    {
+      "sourceId": "source-renderer-process",
+      "entrySlug": "renderer-process",
+      "repository": "chromium",
+      "path": "//docs/process_model_and_site_isolation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/process_model_and_site_isolation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Process Model and Site Isolation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5a371fa56628822f38946d32ef5ce291e07ff74c1fb5a53b1eaac0249fe41bab"
+    },
+    {
+      "sourceId": "source-sandbox",
+      "entrySlug": "sandbox",
+      "repository": "chromium",
+      "path": "//docs/design/sandbox.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/design/sandbox.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Sandbox"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "7b4efcf54eead4d0a30a941740472dde0124609b13e30130ffc4ef7ff4151c75"
+    },
+    {
+      "sourceId": "source-sandbox-2",
+      "entrySlug": "sandbox",
+      "repository": "chromium",
+      "path": "//docs/security/rule-of-2.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/security/rule-of-2.md",
+      "locator": {
+        "kind": "heading",
+        "value": "The Rule of 2"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "14037d49b69cc2285d0d1f9b4a8f10b29819e3846893214529fba218486ede5c"
+    },
+    {
+      "sourceId": "source-service-process",
+      "entrySlug": "service-process",
+      "repository": "chromium",
+      "path": "//services/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Service development guidelines"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "4551925ae818ae35b84ca762a5acbb87910e4dea953ef500235ae1055afcf866"
+    },
+    {
+      "sourceId": "source-service-worker",
+      "entrySlug": "service-worker",
+      "repository": "chromium",
+      "path": "//content/browser/service_worker/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/service_worker/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Service workers"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5972c529c92eb14e9225ba8f4ee9e0bc7d5e6f1d0dcef0d7351feed600321503"
+    },
+    {
+      "sourceId": "source-site-isolation",
+      "entrySlug": "site-isolation",
+      "repository": "chromium",
+      "path": "//docs/process_model_and_site_isolation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/process_model_and_site_isolation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Full Site Isolation (site-per-process)"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5a371fa56628822f38946d32ef5ce291e07ff74c1fb5a53b1eaac0249fe41bab"
+    },
+    {
+      "sourceId": "source-siteinstance",
+      "entrySlug": "siteinstance",
+      "repository": "chromium",
+      "path": "//content/public/browser/site_instance.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/site_instance.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::SiteInstance"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "031a207509e37fd113c47530a3015bed15383202ebf17e005713438b8e908e19"
+    },
+    {
+      "sourceId": "source-storage-partition",
+      "entrySlug": "storage-partition",
+      "repository": "chromium",
+      "path": "//content/public/browser/storage_partition.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/storage_partition.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::StoragePartition"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5bf636613ec28382e393b812216afd199ff7024d0a3b780887261ad11abdffa7"
+    },
+    {
+      "sourceId": "source-style-recalculation",
+      "entrySlug": "style-recalculation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/css/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/css/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Style invalidation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "c9c48fe4295968954d1416a5e02ad2442bb764230213e7c617bb2b861084e0ea"
+    },
+    {
+      "sourceId": "source-surface",
+      "entrySlug": "surface",
+      "repository": "chromium",
+      "path": "//components/viz/common/quads/compositor_frame.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common/quads/compositor_frame.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "viz::CompositorFrame"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "9c2afaac971e3f66a4346c242e733a6c94b74d81c10ad9265bde4f968e2a1358"
+    },
+    {
+      "sourceId": "source-tasks-threads-sequences",
+      "entrySlug": "tasks-threads-sequences",
+      "repository": "chromium",
+      "path": "//docs/threading_and_tasks.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/threading_and_tasks.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Core Concepts"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "9509b1038e0c5dc1091347599dd99e6a90987888078e65adbd9610e2a7c87999"
+    },
+    {
+      "sourceId": "source-tracing",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//base/tracing/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/tracing/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Overhauled performance tracing in Chrome"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "1b1d9f2413605a7225e8797a534a91dcffb675955a05d8d31d20b063c282d8c5"
+    },
+    {
+      "sourceId": "source-tracing-2",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//docs/trace_events.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/trace_events.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Trace Event Usage"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "d25e37ba5cdf86b670baf67c52e2fe4977560756e4d80d2dc83ca28d7ed0c642"
+    },
+    {
+      "sourceId": "source-tracing-3",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//services/tracing/perfetto/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/tracing/perfetto/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Overview"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "a7c1a4bee92ecb500f5ed09a2995c28c2823a917ce8007e1abd12ef02aeeb4da"
+    },
+    {
+      "sourceId": "source-url-loader",
+      "entrySlug": "url-loader",
+      "repository": "chromium",
+      "path": "//services/network/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Network Service"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "67367eb9e2eccc4848b747cfa7eda72452c208a527dc2aec1ae072d74c43af5e"
+    },
+    {
+      "sourceId": "source-v8",
+      "entrySlug": "v8",
+      "repository": "v8",
+      "path": "//docs/index.md",
+      "reviewedRevision": "a51f757c347cf2132a625b1bb63ce8701eb2bf1e",
+      "reviewedUrl": "https://chromium.googlesource.com/v8/v8/+/a51f757c347cf2132a625b1bb63ce8701eb2bf1e/docs/index.md",
+      "locator": {
+        "kind": "heading",
+        "value": "About V8"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "f01fea27df7aa39f8e431bcc585441a1ca7584b8cbab91bd935807f4ccc0b213"
+    },
+    {
+      "sourceId": "source-v8-bindings",
+      "entrySlug": "v8-bindings",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "The bindings/ directory"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "17b2561105aa34ca0abdb752502e6ccfbded9b9a66fc3b3f6120dd3df6b536c8"
+    },
+    {
+      "sourceId": "source-viz",
+      "entrySlug": "viz",
+      "repository": "chromium",
+      "path": "//components/viz/README.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/README.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Terminology"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "e3b3b4e02a6216c887fa211e74d555aaa7f4533bc9597a578b102e2aca686134"
+    },
+    {
+      "sourceId": "source-webcontents",
+      "entrySlug": "webcontents",
+      "repository": "chromium",
+      "path": "//content/public/browser/web_contents.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/web_contents.h",
+      "locator": {
+        "kind": "symbol",
+        "value": "content::WebContents"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "6d2f6eecf85ec302d59f02774f20a360d6e5041c32ac1d9d273c3a2d7840f80d"
+    },
+    {
+      "sourceId": "source-webui",
+      "entrySlug": "webui",
+      "repository": "chromium",
+      "path": "//docs/webui/webui_explainer.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/webui/webui_explainer.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Browser (C++) and Renderer (JS) communication"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "741575e577dc746d90c4d1e38c048e74b10b7eefec81abe0ec23c19e1cb45664"
+    },
+    {
+      "sourceId": "source-worker",
+      "entrySlug": "worker",
+      "repository": "chromium",
+      "path": "//docs/process_model_and_site_isolation.md",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/docs/process_model_and_site_isolation.md",
+      "locator": {
+        "kind": "heading",
+        "value": "Process Model and Site Isolation"
+      },
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "verified",
+      "httpStatus": 200,
+      "contentSha256": "5a371fa56628822f38946d32ef5ce291e07ff74c1fb5a53b1eaac0249fe41bab"
+    }
+  ],
+  "codePaths": [
+    {
+      "key": "beginframe|chromium|//cc/scheduler",
+      "entrySlug": "beginframe",
+      "repository": "chromium",
+      "path": "//cc/scheduler",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/scheduler",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "beginframe|chromium|//components/viz/common/frame_sinks/begin_frame_args.h",
+      "entrySlug": "beginframe",
+      "repository": "chromium",
+      "path": "//components/viz/common/frame_sinks/begin_frame_args.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common/frame_sinks/begin_frame_args.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "beginframe|chromium|//components/viz/service/frame_sinks",
+      "entrySlug": "beginframe",
+      "repository": "chromium",
+      "path": "//components/viz/service/frame_sinks",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/service/frame_sinks",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "blink|chromium|//third_party/blink/renderer/core",
+      "entrySlug": "blink",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "blink|chromium|//third_party/blink/renderer/modules",
+      "entrySlug": "blink",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/modules",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/modules",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "blink|chromium|//third_party/blink/renderer/platform",
+      "entrySlug": "blink",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-process|chromium|//chrome/browser",
+      "entrySlug": "browser-process",
+      "repository": "chromium",
+      "path": "//chrome/browser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome/browser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-process|chromium|//content/browser",
+      "entrySlug": "browser-process",
+      "repository": "chromium",
+      "path": "//content/browser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-process|chromium|//content/public/browser",
+      "entrySlug": "browser-process",
+      "repository": "chromium",
+      "path": "//content/public/browser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-ui-views|chromium|//chrome/browser/ui/views",
+      "entrySlug": "browser-ui-views",
+      "repository": "chromium",
+      "path": "//chrome/browser/ui/views",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome/browser/ui/views",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-ui-views|chromium|//ui/base",
+      "entrySlug": "browser-ui-views",
+      "repository": "chromium",
+      "path": "//ui/base",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/base",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "browser-ui-views|chromium|//ui/views",
+      "entrySlug": "browser-ui-views",
+      "repository": "chromium",
+      "path": "//ui/views",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/views",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "chromium-vs-chrome|chromium|//chrome",
+      "entrySlug": "chromium-vs-chrome",
+      "repository": "chromium",
+      "path": "//chrome",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "chromium-vs-chrome|chromium|//content",
+      "entrySlug": "chromium-vs-chrome",
+      "repository": "chromium",
+      "path": "//content",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "chromium-vs-chrome|chromium|//third_party/blink",
+      "entrySlug": "chromium-vs-chrome",
+      "repository": "chromium",
+      "path": "//third_party/blink",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "compositing|chromium|//cc/layers",
+      "entrySlug": "compositing",
+      "repository": "chromium",
+      "path": "//cc/layers",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/layers",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "compositing|chromium|//cc/trees",
+      "entrySlug": "compositing",
+      "repository": "chromium",
+      "path": "//cc/trees",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/trees",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "compositing|chromium|//third_party/blink/renderer/platform/graphics/compositing",
+      "entrySlug": "compositing",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/compositing",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/compositing",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "content-layer|chromium|//content/browser",
+      "entrySlug": "content-layer",
+      "repository": "chromium",
+      "path": "//content/browser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "content-layer|chromium|//content/public",
+      "entrySlug": "content-layer",
+      "repository": "chromium",
+      "path": "//content/public",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "content-layer|chromium|//content/renderer",
+      "entrySlug": "content-layer",
+      "repository": "chromium",
+      "path": "//content/renderer",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/renderer",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "cookies|chromium|//content/browser/cookie_store",
+      "entrySlug": "cookies",
+      "repository": "chromium",
+      "path": "//content/browser/cookie_store",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/cookie_store",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "cookies|chromium|//net/cookies",
+      "entrySlug": "cookies",
+      "repository": "chromium",
+      "path": "//net/cookies",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/cookies",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "cookies|chromium|//services/network/cookie_manager.cc",
+      "entrySlug": "cookies",
+      "repository": "chromium",
+      "path": "//services/network/cookie_manager.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/cookie_manager.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "document-lifecycle|chromium|//third_party/blink/renderer/core/dom/document_lifecycle.h",
+      "entrySlug": "document-lifecycle",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/dom/document_lifecycle.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/dom/document_lifecycle.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "document-lifecycle|chromium|//third_party/blink/renderer/core/frame/local_frame_view.cc",
+      "entrySlug": "document-lifecycle",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/frame/local_frame_view.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/frame/local_frame_view.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "document-lifecycle|chromium|//third_party/blink/renderer/core/paint",
+      "entrySlug": "document-lifecycle",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "dom|chromium|//third_party/blink/renderer/core/dom",
+      "entrySlug": "dom",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/dom",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/dom",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "dom|chromium|//third_party/blink/renderer/core/html",
+      "entrySlug": "dom",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/html",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/html",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "dom|chromium|//third_party/blink/renderer/core/html/parser",
+      "entrySlug": "dom",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/html/parser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/html/parser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "event-loop|chromium|//base/message_loop",
+      "entrySlug": "event-loop",
+      "repository": "chromium",
+      "path": "//base/message_loop",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/message_loop",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "event-loop|chromium|//third_party/blink/renderer/core/frame",
+      "entrySlug": "event-loop",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/frame",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/frame",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "event-loop|chromium|//third_party/blink/renderer/platform/scheduler",
+      "entrySlug": "event-loop",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/scheduler",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/scheduler",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "frame-tree|chromium|//content/browser/renderer_host/frame_tree.h",
+      "entrySlug": "frame-tree",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/frame_tree.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/frame_tree.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "frame-tree|chromium|//content/browser/renderer_host/frame_tree_node.h",
+      "entrySlug": "frame-tree",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/frame_tree_node.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/frame_tree_node.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "frame-tree|chromium|//content/browser/renderer_host/render_frame_host_impl.h",
+      "entrySlug": "frame-tree",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_frame_host_impl.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_frame_host_impl.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "garbage-collection|chromium|//third_party/blink/renderer/bindings/core/v8",
+      "entrySlug": "garbage-collection",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings/core/v8",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings/core/v8",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "garbage-collection|chromium|//third_party/blink/renderer/platform/heap",
+      "entrySlug": "garbage-collection",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/heap",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/heap",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "garbage-collection|v8|//v8/src/heap",
+      "entrySlug": "garbage-collection",
+      "repository": "v8",
+      "path": "//v8/src/heap",
+      "reviewedRevision": "a51f757c347cf2132a625b1bb63ce8701eb2bf1e",
+      "reviewedUrl": "https://chromium.googlesource.com/v8/v8/+/a51f757c347cf2132a625b1bb63ce8701eb2bf1e/src/heap",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "gpu-process|chromium|//components/viz/service/gl",
+      "entrySlug": "gpu-process",
+      "repository": "chromium",
+      "path": "//components/viz/service/gl",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/service/gl",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "gpu-process|chromium|//content/gpu",
+      "entrySlug": "gpu-process",
+      "repository": "chromium",
+      "path": "//content/gpu",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/gpu",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "gpu-process|chromium|//gpu",
+      "entrySlug": "gpu-process",
+      "repository": "chromium",
+      "path": "//gpu",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gpu",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "http-cache|chromium|//net/disk_cache",
+      "entrySlug": "http-cache",
+      "repository": "chromium",
+      "path": "//net/disk_cache",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/disk_cache",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "http-cache|chromium|//net/http/http_cache.cc",
+      "entrySlug": "http-cache",
+      "repository": "chromium",
+      "path": "//net/http/http_cache.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/http/http_cache.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "http-cache|chromium|//net/url_request",
+      "entrySlug": "http-cache",
+      "repository": "chromium",
+      "path": "//net/url_request",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/url_request",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "isolate-and-context|chromium|//third_party/blink/renderer/bindings/core/v8",
+      "entrySlug": "isolate-and-context",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings/core/v8",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings/core/v8",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "isolate-and-context|v8|//v8/include/v8-context.h",
+      "entrySlug": "isolate-and-context",
+      "repository": "v8",
+      "path": "//v8/include/v8-context.h",
+      "reviewedRevision": "a51f757c347cf2132a625b1bb63ce8701eb2bf1e",
+      "reviewedUrl": "https://chromium.googlesource.com/v8/v8/+/a51f757c347cf2132a625b1bb63ce8701eb2bf1e/include/v8-context.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "isolate-and-context|v8|//v8/include/v8-isolate.h",
+      "entrySlug": "isolate-and-context",
+      "repository": "v8",
+      "path": "//v8/include/v8-isolate.h",
+      "reviewedRevision": "a51f757c347cf2132a625b1bb63ce8701eb2bf1e",
+      "reviewedUrl": "https://chromium.googlesource.com/v8/v8/+/a51f757c347cf2132a625b1bb63ce8701eb2bf1e/include/v8-isolate.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "layout|chromium|//third_party/blink/renderer/core/layout",
+      "entrySlug": "layout",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/layout",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/layout",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "layout|chromium|//third_party/blink/renderer/core/layout/inline",
+      "entrySlug": "layout",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/layout/inline",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/layout/inline",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "layout|chromium|//third_party/blink/renderer/core/layout/physical_fragment.h",
+      "entrySlug": "layout",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/layout/physical_fragment.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/layout/physical_fragment.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "mojo|chromium|//content/common",
+      "entrySlug": "mojo",
+      "repository": "chromium",
+      "path": "//content/common",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/common",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "mojo|chromium|//mojo/core",
+      "entrySlug": "mojo",
+      "repository": "chromium",
+      "path": "//mojo/core",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/mojo/core",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "mojo|chromium|//mojo/public",
+      "entrySlug": "mojo",
+      "repository": "chromium",
+      "path": "//mojo/public",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/mojo/public",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "multi-process-architecture|chromium|//content/browser",
+      "entrySlug": "multi-process-architecture",
+      "repository": "chromium",
+      "path": "//content/browser",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "multi-process-architecture|chromium|//content/gpu",
+      "entrySlug": "multi-process-architecture",
+      "repository": "chromium",
+      "path": "//content/gpu",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/gpu",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "multi-process-architecture|chromium|//content/renderer",
+      "entrySlug": "multi-process-architecture",
+      "repository": "chromium",
+      "path": "//content/renderer",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/renderer",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation-throttle|chromium|//chrome/browser/navigation_predictor",
+      "entrySlug": "navigation-throttle",
+      "repository": "chromium",
+      "path": "//chrome/browser/navigation_predictor",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome/browser/navigation_predictor",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation-throttle|chromium|//content/browser/renderer_host/navigation_throttle_runner.cc",
+      "entrySlug": "navigation-throttle",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/navigation_throttle_runner.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/navigation_throttle_runner.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation-throttle|chromium|//content/public/browser/navigation_throttle.h",
+      "entrySlug": "navigation-throttle",
+      "repository": "chromium",
+      "path": "//content/public/browser/navigation_throttle.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/navigation_throttle.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation|chromium|//content/browser/renderer_host/navigation_controller_impl.cc",
+      "entrySlug": "navigation",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/navigation_controller_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/navigation_controller_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation|chromium|//content/browser/renderer_host/navigation_request.h",
+      "entrySlug": "navigation",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/navigation_request.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/navigation_request.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "navigation|chromium|//content/browser/renderer_host/navigation_throttle_runner.cc",
+      "entrySlug": "navigation",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/navigation_throttle_runner.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/navigation_throttle_runner.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-isolation-key|chromium|//net/base/network_isolation_key.h",
+      "entrySlug": "network-isolation-key",
+      "repository": "chromium",
+      "path": "//net/base/network_isolation_key.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/base/network_isolation_key.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-isolation-key|chromium|//net/http/http_cache.cc",
+      "entrySlug": "network-isolation-key",
+      "repository": "chromium",
+      "path": "//net/http/http_cache.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/http/http_cache.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-isolation-key|chromium|//services/network/network_context.cc",
+      "entrySlug": "network-isolation-key",
+      "repository": "chromium",
+      "path": "//services/network/network_context.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/network_context.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-service|chromium|//content/browser/network",
+      "entrySlug": "network-service",
+      "repository": "chromium",
+      "path": "//content/browser/network",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/network",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-service|chromium|//net",
+      "entrySlug": "network-service",
+      "repository": "chromium",
+      "path": "//net",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "network-service|chromium|//services/network",
+      "entrySlug": "network-service",
+      "repository": "chromium",
+      "path": "//services/network",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "origin-and-site|chromium|//content/browser/site_info.h",
+      "entrySlug": "origin-and-site",
+      "repository": "chromium",
+      "path": "//content/browser/site_info.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/site_info.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "origin-and-site|chromium|//net/base/schemeful_site.h",
+      "entrySlug": "origin-and-site",
+      "repository": "chromium",
+      "path": "//net/base/schemeful_site.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/net/base/schemeful_site.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "origin-and-site|chromium|//url/origin.h",
+      "entrySlug": "origin-and-site",
+      "repository": "chromium",
+      "path": "//url/origin.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/url/origin.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "ozone|chromium|//ui/display",
+      "entrySlug": "ozone",
+      "repository": "chromium",
+      "path": "//ui/display",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/display",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "ozone|chromium|//ui/ozone",
+      "entrySlug": "ozone",
+      "repository": "chromium",
+      "path": "//ui/ozone",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/ozone",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "ozone|chromium|//ui/platform_window",
+      "entrySlug": "ozone",
+      "repository": "chromium",
+      "path": "//ui/platform_window",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/platform_window",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-artifact|chromium|//cc/layers",
+      "entrySlug": "paint-artifact",
+      "repository": "chromium",
+      "path": "//cc/layers",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/layers",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-artifact|chromium|//third_party/blink/renderer/platform/graphics/compositing/paint_artifact_compositor.cc",
+      "entrySlug": "paint-artifact",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/compositing/paint_artifact_compositor.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/compositing/paint_artifact_compositor.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-artifact|chromium|//third_party/blink/renderer/platform/graphics/paint/paint_artifact.h",
+      "entrySlug": "paint-artifact",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/paint/paint_artifact.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/paint/paint_artifact.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-invalidation|chromium|//third_party/blink/renderer/core/paint",
+      "entrySlug": "paint-invalidation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-invalidation|chromium|//third_party/blink/renderer/core/paint/paint_invalidator.cc",
+      "entrySlug": "paint-invalidation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint/paint_invalidator.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint/paint_invalidator.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint-invalidation|chromium|//third_party/blink/renderer/platform/graphics/paint/paint_controller.cc",
+      "entrySlug": "paint-invalidation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/paint/paint_controller.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/paint/paint_controller.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint|chromium|//cc/paint",
+      "entrySlug": "paint",
+      "repository": "chromium",
+      "path": "//cc/paint",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/paint",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint|chromium|//third_party/blink/renderer/core/paint",
+      "entrySlug": "paint",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "paint|chromium|//third_party/blink/renderer/platform/graphics/paint",
+      "entrySlug": "paint",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/paint",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/paint",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "process-lock|chromium|//content/browser/process_lock.h",
+      "entrySlug": "process-lock",
+      "repository": "chromium",
+      "path": "//content/browser/process_lock.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/process_lock.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "process-lock|chromium|//content/browser/renderer_host/render_process_host_impl.cc",
+      "entrySlug": "process-lock",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_process_host_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_process_host_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "process-lock|chromium|//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "entrySlug": "process-lock",
+      "repository": "chromium",
+      "path": "//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "property-trees|chromium|//cc/trees/property_tree.h",
+      "entrySlug": "property-trees",
+      "repository": "chromium",
+      "path": "//cc/trees/property_tree.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/trees/property_tree.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "property-trees|chromium|//third_party/blink/renderer/core/paint/paint_property_tree_builder.cc",
+      "entrySlug": "property-trees",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/paint/paint_property_tree_builder.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/paint/paint_property_tree_builder.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "property-trees|chromium|//third_party/blink/renderer/platform/graphics/paint/property_tree_state.h",
+      "entrySlug": "property-trees",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/platform/graphics/paint/property_tree_state.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/platform/graphics/paint/property_tree_state.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "rasterization|chromium|//cc/raster",
+      "entrySlug": "rasterization",
+      "repository": "chromium",
+      "path": "//cc/raster",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/raster",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "rasterization|chromium|//cc/tiles",
+      "entrySlug": "rasterization",
+      "repository": "chromium",
+      "path": "//cc/tiles",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/cc/tiles",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "rasterization|chromium|//gpu/command_buffer",
+      "entrySlug": "rasterization",
+      "repository": "chromium",
+      "path": "//gpu/command_buffer",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gpu/command_buffer",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "render-frame-host|chromium|//content/browser/renderer_host/render_frame_host_impl.h",
+      "entrySlug": "render-frame-host",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_frame_host_impl.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_frame_host_impl.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "render-frame-host|chromium|//content/browser/renderer_host/render_frame_host_manager.cc",
+      "entrySlug": "render-frame-host",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_frame_host_manager.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_frame_host_manager.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "render-frame-host|chromium|//content/public/browser/render_frame_host.h",
+      "entrySlug": "render-frame-host",
+      "repository": "chromium",
+      "path": "//content/public/browser/render_frame_host.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/render_frame_host.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "renderer-process|chromium|//content/renderer",
+      "entrySlug": "renderer-process",
+      "repository": "chromium",
+      "path": "//content/renderer",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/renderer",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "renderer-process|chromium|//gin",
+      "entrySlug": "renderer-process",
+      "repository": "chromium",
+      "path": "//gin",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gin",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "renderer-process|chromium|//third_party/blink/renderer",
+      "entrySlug": "renderer-process",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "sandbox|chromium|//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "entrySlug": "sandbox",
+      "repository": "chromium",
+      "path": "//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "sandbox|chromium|//sandbox",
+      "entrySlug": "sandbox",
+      "repository": "chromium",
+      "path": "//sandbox",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/sandbox",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "sandbox|chromium|//sandbox/policy",
+      "entrySlug": "sandbox",
+      "repository": "chromium",
+      "path": "//sandbox/policy",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/sandbox/policy",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-process|chromium|//content/browser/service_host",
+      "entrySlug": "service-process",
+      "repository": "chromium",
+      "path": "//content/browser/service_host",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/service_host",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-process|chromium|//content/utility",
+      "entrySlug": "service-process",
+      "repository": "chromium",
+      "path": "//content/utility",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/utility",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-process|chromium|//services",
+      "entrySlug": "service-process",
+      "repository": "chromium",
+      "path": "//services",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-worker|chromium|//content/browser/service_worker",
+      "entrySlug": "service-worker",
+      "repository": "chromium",
+      "path": "//content/browser/service_worker",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/service_worker",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-worker|chromium|//content/common/service_worker",
+      "entrySlug": "service-worker",
+      "repository": "chromium",
+      "path": "//content/common/service_worker",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/common/service_worker",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "service-worker|chromium|//third_party/blink/renderer/modules/service_worker",
+      "entrySlug": "service-worker",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/modules/service_worker",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/modules/service_worker",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "site-isolation|chromium|//content/browser/renderer_host/render_frame_host_manager.cc",
+      "entrySlug": "site-isolation",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_frame_host_manager.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_frame_host_manager.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "site-isolation|chromium|//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "entrySlug": "site-isolation",
+      "repository": "chromium",
+      "path": "//content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/security/cpsp/child_process_security_policy_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "site-isolation|chromium|//content/browser/site_instance_impl.cc",
+      "entrySlug": "site-isolation",
+      "repository": "chromium",
+      "path": "//content/browser/site_instance_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/site_instance_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "siteinstance|chromium|//content/browser/renderer_host/render_process_host_impl.cc",
+      "entrySlug": "siteinstance",
+      "repository": "chromium",
+      "path": "//content/browser/renderer_host/render_process_host_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/renderer_host/render_process_host_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "siteinstance|chromium|//content/browser/site_instance_impl.h",
+      "entrySlug": "siteinstance",
+      "repository": "chromium",
+      "path": "//content/browser/site_instance_impl.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/site_instance_impl.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "siteinstance|chromium|//content/public/browser/site_instance.h",
+      "entrySlug": "siteinstance",
+      "repository": "chromium",
+      "path": "//content/public/browser/site_instance.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/site_instance.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "storage-partition|chromium|//content/browser/dom_storage",
+      "entrySlug": "storage-partition",
+      "repository": "chromium",
+      "path": "//content/browser/dom_storage",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/dom_storage",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "storage-partition|chromium|//content/browser/storage_partition_impl.cc",
+      "entrySlug": "storage-partition",
+      "repository": "chromium",
+      "path": "//content/browser/storage_partition_impl.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/storage_partition_impl.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "storage-partition|chromium|//content/public/browser/storage_partition.h",
+      "entrySlug": "storage-partition",
+      "repository": "chromium",
+      "path": "//content/public/browser/storage_partition.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/storage_partition.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "style-recalculation|chromium|//third_party/blink/renderer/core/css",
+      "entrySlug": "style-recalculation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/css",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/css",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "style-recalculation|chromium|//third_party/blink/renderer/core/css/resolver",
+      "entrySlug": "style-recalculation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/css/resolver",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/css/resolver",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "style-recalculation|chromium|//third_party/blink/renderer/core/dom",
+      "entrySlug": "style-recalculation",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/dom",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/dom",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "surface|chromium|//components/viz/common/quads/compositor_frame.h",
+      "entrySlug": "surface",
+      "repository": "chromium",
+      "path": "//components/viz/common/quads/compositor_frame.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common/quads/compositor_frame.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "surface|chromium|//components/viz/service/display",
+      "entrySlug": "surface",
+      "repository": "chromium",
+      "path": "//components/viz/service/display",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/service/display",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "surface|chromium|//components/viz/service/surfaces",
+      "entrySlug": "surface",
+      "repository": "chromium",
+      "path": "//components/viz/service/surfaces",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/service/surfaces",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tasks-threads-sequences|chromium|//base/functional/callback.h",
+      "entrySlug": "tasks-threads-sequences",
+      "repository": "chromium",
+      "path": "//base/functional/callback.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/functional/callback.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tasks-threads-sequences|chromium|//base/task",
+      "entrySlug": "tasks-threads-sequences",
+      "repository": "chromium",
+      "path": "//base/task",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/task",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tasks-threads-sequences|chromium|//base/threading",
+      "entrySlug": "tasks-threads-sequences",
+      "repository": "chromium",
+      "path": "//base/threading",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/threading",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tracing|chromium|//base/tracing",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//base/tracing",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/base/tracing",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tracing|chromium|//services/tracing",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//services/tracing",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/tracing",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "tracing|chromium|//third_party/perfetto",
+      "entrySlug": "tracing",
+      "repository": "chromium",
+      "path": "//third_party/perfetto",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/perfetto",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "url-loader|chromium|//content/browser/loader",
+      "entrySlug": "url-loader",
+      "repository": "chromium",
+      "path": "//content/browser/loader",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/loader",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "url-loader|chromium|//services/network/public/mojom/url_loader.mojom",
+      "entrySlug": "url-loader",
+      "repository": "chromium",
+      "path": "//services/network/public/mojom/url_loader.mojom",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/public/mojom/url_loader.mojom",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "url-loader|chromium|//services/network/url_loader.cc",
+      "entrySlug": "url-loader",
+      "repository": "chromium",
+      "path": "//services/network/url_loader.cc",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/services/network/url_loader.cc",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8-bindings|chromium|//third_party/blink/renderer/bindings",
+      "entrySlug": "v8-bindings",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8-bindings|chromium|//third_party/blink/renderer/bindings/scripts",
+      "entrySlug": "v8-bindings",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings/scripts",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings/scripts",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8-bindings|chromium|//third_party/blink/renderer/core",
+      "entrySlug": "v8-bindings",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8|chromium|//gin",
+      "entrySlug": "v8",
+      "repository": "chromium",
+      "path": "//gin",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/gin",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8|chromium|//third_party/blink/renderer/bindings",
+      "entrySlug": "v8",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/bindings",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/bindings",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "v8|v8|//v8",
+      "entrySlug": "v8",
+      "repository": "v8",
+      "path": "//v8",
+      "reviewedRevision": "a51f757c347cf2132a625b1bb63ce8701eb2bf1e",
+      "reviewedUrl": "https://chromium.googlesource.com/v8/v8/+/a51f757c347cf2132a625b1bb63ce8701eb2bf1e/",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "viz|chromium|//components/viz/common",
+      "entrySlug": "viz",
+      "repository": "chromium",
+      "path": "//components/viz/common",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/common",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "viz|chromium|//components/viz/host",
+      "entrySlug": "viz",
+      "repository": "chromium",
+      "path": "//components/viz/host",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/host",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "viz|chromium|//components/viz/service",
+      "entrySlug": "viz",
+      "repository": "chromium",
+      "path": "//components/viz/service",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/components/viz/service",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webcontents|chromium|//chrome/browser/ui/tabs",
+      "entrySlug": "webcontents",
+      "repository": "chromium",
+      "path": "//chrome/browser/ui/tabs",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome/browser/ui/tabs",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webcontents|chromium|//content/browser/web_contents",
+      "entrySlug": "webcontents",
+      "repository": "chromium",
+      "path": "//content/browser/web_contents",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/web_contents",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webcontents|chromium|//content/public/browser/web_contents.h",
+      "entrySlug": "webcontents",
+      "repository": "chromium",
+      "path": "//content/public/browser/web_contents.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/web_contents.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webui|chromium|//chrome/browser/ui/webui",
+      "entrySlug": "webui",
+      "repository": "chromium",
+      "path": "//chrome/browser/ui/webui",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/chrome/browser/ui/webui",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webui|chromium|//content/public/browser/web_ui.h",
+      "entrySlug": "webui",
+      "repository": "chromium",
+      "path": "//content/public/browser/web_ui.h",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/public/browser/web_ui.h",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "webui|chromium|//ui/webui",
+      "entrySlug": "webui",
+      "repository": "chromium",
+      "path": "//ui/webui",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/ui/webui",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "worker|chromium|//content/browser/service_worker",
+      "entrySlug": "worker",
+      "repository": "chromium",
+      "path": "//content/browser/service_worker",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/service_worker",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "worker|chromium|//content/browser/worker_host",
+      "entrySlug": "worker",
+      "repository": "chromium",
+      "path": "//content/browser/worker_host",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/content/browser/worker_host",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    },
+    {
+      "key": "worker|chromium|//third_party/blink/renderer/core/workers",
+      "entrySlug": "worker",
+      "repository": "chromium",
+      "path": "//third_party/blink/renderer/core/workers",
+      "reviewedRevision": "b54c8973710f800b2b73d1f496db11a2a344340b",
+      "reviewedUrl": "https://chromium.googlesource.com/chromium/src/+/b54c8973710f800b2b73d1f496db11a2a344340b/third_party/blink/renderer/core/workers",
+      "verifiedAt": "2026-09-03T09:41:08.071Z",
+      "status": "exists-at-reviewed-revision",
+      "httpStatus": 200
+    }
+  ]
+}
