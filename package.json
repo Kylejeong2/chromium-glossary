@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "capture:beauty": "tsx scripts/capture-beauty-matrix.ts",
+    "capture:diagrams": "tsx scripts/capture-diagram-matrix.ts",
     "refresh:diagram-font-metrics": "tsx scripts/generate-diagram-font-metrics.ts",
     "refresh:evidence": "tsx scripts/refresh-evidence-lock.ts",
     "verify:diagram-font-metrics": "tsx scripts/generate-diagram-font-metrics.ts --check",

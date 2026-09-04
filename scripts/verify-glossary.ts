@@ -29,6 +29,13 @@ for (const entry of entries) {
   if (new Set(mechanismText).size !== mechanismText.length || mechanismText.includes(lede)) {
     issue("copy.mechanism-duplicate", `${path}.explanation`, "Mechanism sentences cannot repeat each other or the lede.");
   }
+  const detailText = entry.details.flatMap((section) => section.claims.map((claim) => normalized(claim.text)));
+  const fullEntryCopy = [lede, ...mechanismText, ...detailText];
+  if (new Set(fullEntryCopy).size !== fullEntryCopy.length) {
+    issue("copy.detail-duplicate", `${path}.details`, "Deeper explanations cannot repeat the lede or mechanism copy.");
+  }
+  const proseWords = [entry.lede.text, ...entry.explanation.map((claim) => claim.text), ...entry.details.flatMap((section) => section.claims.map((claim) => claim.text))].join(" ").trim().split(/\s+/).length;
+  if (proseWords < 100) issue("copy.depth", path, `Entry prose needs at least 100 words; found ${proseWords}.`);
 
   const nodeIds = new Set(entry.diagram.nodes.map((node) => node.id));
   const groupIds = new Set(entry.diagram.groups.map((group) => group.id));

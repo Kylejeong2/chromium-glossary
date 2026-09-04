@@ -12,6 +12,24 @@ describe("chromium glossary document", () => {
     expect(() => JSON.stringify(chromiumGlossary)).not.toThrow();
   });
 
+  it("orders the curriculum from browser foundations to observable output", () => {
+    expect(chromiumGlossary.stages.map((stage) => stage.title)).toEqual([
+      "Meet the browser",
+      "Map the process model",
+      "Understand trust boundaries",
+      "Follow a navigation",
+      "Run the document",
+      "Render the pixels",
+      "Trace the system",
+    ]);
+    const slugs = chromiumGlossary.stages.flatMap((stage) => stage.entries.map((entry) => entry.slug));
+    expect(slugs.indexOf("site-isolation")).toBeLessThan(slugs.indexOf("navigation"));
+    expect(slugs.indexOf("v8")).toBeLessThan(slugs.indexOf("style-recalculation"));
+    const copy = structuredClone(chromiumGlossary) as unknown as { stages: Array<{ entries: unknown[] }> };
+    copy.stages[1].entries.reverse();
+    expect(validateGlossary(copy).map((issue) => issue.code)).toContain("curriculum.order");
+  });
+
   it("ranks title matches ahead of mechanism matches", () => {
     const results = createCatalog(chromiumGlossary).search("renderer");
     expect(results[0].slug).toBe("renderer-process");
@@ -22,6 +40,22 @@ describe("chromium glossary document", () => {
     const results = createCatalog(chromiumGlossary).search("process");
     expect(results.some((entry) => entry.order >= 6 && entry.order <= 15)).toBe(true);
     expect(results.some((entry) => entry.order > 15)).toBe(true);
+  });
+
+  it("indexes the deeper explanations", () => {
+    const results = createCatalog(chromiumGlossary).search("purpose-built sandbox");
+    expect(results[0]?.slug).toBe("service-process");
+  });
+
+  it("gives every entry source-backed long-form depth", () => {
+    const entries = chromiumGlossary.stages.flatMap((stage) => stage.entries);
+    for (const entry of entries) {
+      expect(entry.details.length, entry.slug).toBeGreaterThanOrEqual(2);
+      expect(entry.details.every((section) => section.claims.length >= 2), entry.slug).toBe(true);
+      expect(entry.details.flatMap((section) => section.claims).every((claim) => claim.evidence.length > 0), entry.slug).toBe(true);
+      const words = [entry.lede.text, ...entry.explanation.map((claim) => claim.text), ...entry.details.flatMap((section) => section.claims.map((claim) => claim.text))].join(" ").split(/\s+/).length;
+      expect(words, entry.slug).toBeGreaterThanOrEqual(100);
+    }
   });
 
   it("rejects inferred or dangling diagram topology", () => {

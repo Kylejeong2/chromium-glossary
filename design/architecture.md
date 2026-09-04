@@ -55,7 +55,7 @@ const drag = useBoundedWindowDrag({
 
 ### macOS-inspired glass shell
 
-- An original, locally served warm glass-ribbon wallpaper fills the viewport with `cover` cropping.
+- The user-provided blue and orange Zoom Loom wallpaper is served locally and fills the viewport with `cover` cropping.
 - A fixed 30-pixel translucent menu bar places the active app and familiar menu labels at the start and honest system status at the end.
 - A centered 77-pixel glass dock contains the three real apps, a decorative launchpad tile, and clear open and focus state.
 - Chromium, Terminal, and Trash shortcuts occupy an upper-right desktop grid. Pointer users select with one click and launch with two; touch and keyboard users launch directly.
@@ -79,12 +79,13 @@ const drag = useBoundedWindowDrag({
 - A 266-pixel icon navigator is present when the Chrome content container is wide enough. It collapses based on container width, not only viewport width.
 - Index, entry, and search content use the Chromium-defined 96-percent centered card rule with a 680-pixel maximum.
 - Entry reading surfaces remain unpatterned and use a readable measure. Source paths, docs, related concepts, and previous or next navigation stay close to their context.
+- Every entry moves from a concise lede to mechanism copy, then two or three tailored explanatory sections before the diagram. Each section is part of the validated glossary document, carries claim-level evidence, and contributes to global search.
 - Browserbase Grey 900 `#46639f`, Grey 200 `#f0f4f8`, and red `#ff4500` are scoped to custom diagrams under `.concept-diagram`; red marks only a sourced positive focus or active path.
 - Official Chromium diagrams appear only on semantically matching entries with alt text, caption, source, intrinsic dimensions, and a narrow-screen policy.
 
 ## Typography and assets
 
-Self-hosted Inter Variable supplies every rendered surface outside custom concept diagrams, including shell labels, browser chrome, article copy, code paths, Terminal, and controls. Self-hosted GT Standard Mono is scoped to `.concept-diagram` labels, where its generated metrics also drive deterministic geometry. No Browserbase diagram font or color token may leak into the surrounding product.
+Self-hosted Inter Variable supplies shell labels, browser chrome, article copy, code paths, and controls. Self-hosted GT Standard Mono is scoped to `.concept-diagram` labels and `.terminal-app`; diagram labels use its generated metrics to drive deterministic geometry. Browserbase diagram colors and geometry remain confined to `.concept-diagram`.
 
 All external assets are copied locally. `public/assets/ASSET_SOURCES.md` records the exact upstream URL, revision or release, license, modification, and use for the font, wallpaper, product mark, OS icons, and any documentation diagram. Images may not be copied from screenshots, search thumbnails, or unverified hotlinks.
 
@@ -104,7 +105,8 @@ export type Workspace = Readonly<{
 
 export type WindowPlacement =
   | Readonly<{ kind: "floating"; frame: Rect }>
-  | Readonly<{ kind: "maximized" | "compact"; restoreFrame: Rect }>;
+  | Readonly<{ kind: "maximized" | "compact"; restoreFrame: Rect }>
+  | Readonly<{ kind: "fullscreen"; restoreFrame: Rect; restoreKind: "floating" | "maximized" }>;
 
 export type ManagedWindow = Readonly<{
   status: "closed" | "visible" | "minimized";
@@ -165,7 +167,7 @@ The route is authoritative for the selected entry. The local history journal onl
 
 ## App quirks
 
-- Terminal retains `help`, `about`, `careers`, `clear`, and `exit`. Its copy may use Browserbase voice; its visual system remains host-neutral and uses Inter.
+- Terminal supports shell-like discovery, command history, glossary and docs opening, Browserbase careers, clear, and exit. It uses GT Standard Mono as a functional command-line face while keeping host-neutral colors and layout.
 - Trash explains garbage collection. Its action closes Trash, opens or restores Chromium, and navigates to `garbage-collection` as one outcome.
 - Dock state immediately reflects closed, open, minimized, and focused applications.
 - The existing Chrome details or About interaction remains the contained browser quirk.
@@ -200,6 +202,12 @@ src/domain/terminal.ts
 
 Filenames describe current ownership. Legacy Lattice naming has been removed.
 
+## Entry content contract
+
+`GlossaryEntry` keeps one lede, two to four mechanism claims, and two or three deeper sections. A deeper section has a unique ID, a descriptive title, and two or three independently evidenced claims. Runtime validation rejects missing evidence, repeated claims, repeated section titles, forbidden punctuation, and entries with fewer than 100 words of explanatory prose. The search catalog indexes the deeper titles and claims alongside the term, aliases, lede, mechanism copy, and code paths.
+
+The article renders all prose in one continuous Chrome-native reading surface before the diagram. This preserves the scan-friendly progression used by strong technical glossaries without copying another site's visual identity or prose.
+
 ## Migration order
 
 1. Record reference and asset provenance, then update the spec and architecture.
@@ -215,7 +223,7 @@ Filenames describe current ownership. Legacy Lattice naming has been removed.
 - Unit tests cover bounded frames, left-dock and top-panel geometry, maximize or restore, compact reflow, lifecycle idempotence, and icon movement.
 - Navigation tests cover public paths, local address input, route history, direct loads, and invalid input.
 - Structural browser tests prove the 30-pixel menu bar, centered 77-pixel dock, 41-pixel tab strip, 34-pixel omnibox, left-side traffic-light controls, locally loaded assets, and the absence of the CSS-built logo.
-- Computed-style sampling proves every visible class of text outside custom diagrams uses Inter as its first family, while `.concept-diagram` alone uses GT Standard Mono and the Browserbase diagram scale.
+- Computed-style sampling proves prose, controls, and chrome use Inter; `.concept-diagram` and `.terminal-app` use GT Standard Mono; and only `.concept-diagram` receives the Browserbase diagram scale.
 - Playwright covers launch, search, entry navigation, dragging and bounds, minimize, restore, close, Back, Forward, Reload, Terminal, Trash, dock state, responsive navigation, and accessibility.
 - Asset verification proves every shipped external asset has a provenance record and loads locally.
 - Live external Chrome review compares desktop arrival, Chromium index, entry and diagram, browser menus and errors, layered native windows, short desktop, mobile portrait, mobile landscape, keyboard, zoom, and reduced motion.
@@ -224,6 +232,6 @@ Build output and automated tests are necessary but do not prove visual fidelity.
 
 ## Synthesis decision
 
-The selected direction now follows the user's macOS 27 simulator reference for the host environment, using its measured menu-bar, dock, window-radius, and traffic-light proportions with an original wallpaper. Chromium's browser constants, the grouped navigator, container-aware collapse, semantic image policy, asset provenance, and truthful-browser rule remain intact.
+The selected direction now follows the user's macOS 27 simulator reference for the host environment, using its measured menu-bar, dock, window-radius, and traffic-light proportions with the user-provided Zoom Loom wallpaper. Chromium's browser constants, the grouped navigator, container-aware collapse, semantic image policy, asset provenance, and truthful-browser rule remain intact.
 
 The design rejects the Plasma bottom panel, OS-level Browserbase red, an early Activities or calendar feature, a glossary rebrand, macOS controls, decorative WebGL, a second native wrapper around Chrome, unsupported multi-tab UI, persistent fake system instructions, and grids under long-form reading text.

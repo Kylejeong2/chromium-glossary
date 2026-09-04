@@ -256,7 +256,15 @@ async function renderedIssues(
       const targets = nodeCenters(targetIds);
       if (rootNode && targets.length === targetIds.length) {
         const rootCenter = center(rootNode.bounds);
-        if (targets.length < 2 || distinctAxis(targets.map((point) => point.x)) < 2 || targets.some((point) => point.y <= rootCenter.y)) issues.push("silhouette.branch");
+        const comparisonContexts = targetIds.map((targetId) => authored.edges.find((edge) => edge.from.kind === "node" && edge.from.id !== pattern.rootId && edge.to.kind === "node" && edge.to.id === targetId)?.from.id);
+        const compactComparison = compact && targetIds.length >= 3 && comparisonContexts.every(Boolean);
+        const comparisonRows = compactComparison && targets.every((target, index) => {
+          const context = renderedNodes.get(comparisonContexts[index]!);
+          const targetNode = renderedNodes.get(targetIds[index]);
+          return context && targetNode && Math.abs(context.bounds.y - targetNode.bounds.y) <= 1 && Math.abs(center(context.bounds).x - target.x) > 1;
+        });
+        const lanes = compactComparison ? distinctAxis(targets.map((point) => point.y)) : distinctAxis(targets.map((point) => point.x));
+        if (targets.length < 2 || lanes < 2 || targets.some((point) => point.y <= rootCenter.y) || (compactComparison && !comparisonRows)) issues.push("silhouette.branch");
       }
     }
     if (pattern.pattern === "fan-in") {
@@ -319,10 +327,11 @@ async function renderedIssues(
     if (pattern.pattern === "cycle") {
       const ordered = pattern.order.map((id) => renderedNodes.get(id)).filter((node): node is RenderedUnit => Boolean(node));
       if (ordered.length === pattern.order.length) {
-        const centers = ordered.map((node) => center(node.bounds));
         if (compact) {
-          if (centers.some((point, index) => index > 0 && point.y <= centers[index - 1].y)) issues.push("silhouette.cycle.compact-order");
-          if (centers.some((point, index) => index > 0 && (point.x - canvas.width / 2) * (centers[index - 1].x - canvas.width / 2) >= 0)) issues.push("silhouette.cycle.compact-alternation");
+          if (ordered.length === 4) {
+            const [topLeft, topRight, bottomRight, bottomLeft] = ordered;
+            if (!(topLeft.bounds.x < topRight.bounds.x && bottomLeft.bounds.x < bottomRight.bounds.x && topLeft.bounds.y === topRight.bounds.y && bottomLeft.bounds.y === bottomRight.bounds.y && bottomLeft.bounds.y > topLeft.bounds.y)) issues.push("silhouette.cycle.compact-loop");
+          }
         } else if (ordered.length === 4) {
           const [topLeft, topRight, bottomRight, bottomLeft] = ordered;
           if (!(topLeft.bounds.x < topRight.bounds.x && bottomLeft.bounds.x < bottomRight.bounds.x && topLeft.bounds.y === topRight.bounds.y && bottomLeft.bounds.y === bottomRight.bounds.y && bottomLeft.bounds.y > topLeft.bounds.y)) issues.push("silhouette.cycle.wide-loop");
@@ -340,12 +349,11 @@ async function renderedIssues(
         const minTop = Math.min(...units.map((unit) => unit.bounds.y));
         if (minTop <= priorBottom) issues.push(`silhouette.state.primary-path:${levelIndex}`);
         if (compact) {
-          if (units.some((unit, index) => index > 0 && unit.bounds.y <= units[index - 1].bounds.y)) issues.push(`silhouette.state.level-order:${levelIndex}`);
+          if (units.some((unit, index) => index > 0 && unit.bounds.y < units[index - 1].bounds.y)) issues.push(`silhouette.state.level-order:${levelIndex}`);
           if (units.length > 1) {
-            const laneStarts = units.map((unit) => unit.bounds.x);
-            const alternates = laneStarts.every((value, index) => index === 0 || Math.abs(value - laneStarts[index - 1]) > 1)
-              && laneStarts.every((value, index) => index < 2 || Math.abs(value - laneStarts[index - 2]) <= 1);
-            if (distinctAxis(laneStarts) < 2 || !alternates) issues.push(`silhouette.state.branch-lane:${levelIndex}`);
+            const rows = [...new Set(units.map((unit) => unit.bounds.y))].map((y) => units.filter((unit) => unit.bounds.y === y));
+            const rowsOrdered = rows.every((row) => row.every((unit, index) => index === 0 || unit.bounds.x > row[index - 1].bounds.x));
+            if (distinctAxis(units.map((unit) => unit.bounds.x)) < 2 || !rowsOrdered) issues.push(`silhouette.state.branch-lane:${levelIndex}`);
           }
         } else {
           if (units.some((unit) => Math.abs(unit.bounds.y - units[0].bounds.y) > 1)) issues.push(`silhouette.state.level-row:${levelIndex}`);
@@ -457,6 +465,8 @@ test("rendered silhouette audit rejects reordered chains, state lanes, and disco
 for (const entry of entries) {
   test(`${entry.slug} has valid rendered geometry at all AC-18 widths`, async ({ page }) => {
     await page.goto(`/glossary/${entry.slug}`);
+    await expect(page.locator(".entry-prose-section")).toHaveCount(3);
+    await expect(page.locator(".definition-section p")).toHaveCount(6);
     const figure = page.locator(".concept-diagram");
     await expect(figure).toHaveAttribute("data-font-status", "ready");
     const expectation = authoredExpectation(entry.diagram);

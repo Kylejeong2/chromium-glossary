@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COMPACT_DOCK_HEIGHT, TOP_BAR_HEIGHT, clampFrame, createDesktopState, desktopReducer, focusedApp, windowFrame, workspaceFor } from "../src/domain/desktop";
+import { COMPACT_DOCK_HEIGHT, TOP_BAR_HEIGHT, clampFrame, createDesktopState, desktopReducer, focusedApp, resizeFrame, windowFrame, workspaceFor } from "../src/domain/desktop";
 
 describe("desktop reducer", () => {
   it("starts every app closed in a freeform workspace", () => {
@@ -42,6 +42,14 @@ describe("desktop reducer", () => {
     expect(state.iconPositions.trash).toEqual({ x: 8, y: 700 });
   });
 
+  it("resizes each anchored edge within the workspace", () => {
+    const workspace = workspaceFor({ width: 1200, height: 800 });
+    const frame = { x: 200, y: 140, width: 700, height: 440 };
+    expect(resizeFrame(frame, "se", { x: 500, y: 500 }, workspace)).toEqual({ x: 200, y: 140, width: 1000, height: 568 });
+    expect(resizeFrame(frame, "nw", { x: 900, y: 900 }, workspace)).toEqual({ x: 580, y: 340, width: 320, height: 240 });
+    expect(resizeFrame(frame, "w", { x: -500, y: 0 }, workspace)).toEqual({ x: 0, y: 140, width: 900, height: 440 });
+  });
+
   it("maximizes, restores, and reflows compact without losing the restore frame", () => {
     let state = createDesktopState("chromium", { width: 1200, height: 800 });
     const floating = state.windows.chromium.placement;
@@ -58,5 +66,21 @@ describe("desktop reducer", () => {
     expect(desktopReducer(state, { type: "window.move", app: "chromium", frame: { x: 30, y: 30, width: 320, height: 400 } })).toBe(state);
     state = desktopReducer(state, { type: "workspace.changed", viewport: { width: 1200, height: 800 } });
     expect(state.windows.chromium.placement.kind).toBe("floating");
+  });
+
+  it("enters true full screen and restores the prior floating or maximized state", () => {
+    let state = createDesktopState("chromium", { width: 1200, height: 800 });
+    const floating = state.windows.chromium.placement;
+    state = desktopReducer(state, { type: "window.fullscreen-toggle", app: "chromium" });
+    expect(state.windows.chromium.placement.kind).toBe("fullscreen");
+    expect(windowFrame(state.windows.chromium, state.workspace)).toEqual({ x: 0, y: 0, width: 1200, height: 800 });
+    state = desktopReducer(state, { type: "window.fullscreen-toggle", app: "chromium" });
+    expect(state.windows.chromium.placement).toEqual(floating);
+    state = desktopReducer(state, { type: "window.maximize-toggle", app: "chromium" });
+    state = desktopReducer(state, { type: "window.fullscreen-toggle", app: "chromium" });
+    state = desktopReducer(state, { type: "workspace.changed", viewport: { width: 1440, height: 900 } });
+    expect(windowFrame(state.windows.chromium, state.workspace)).toEqual({ x: 0, y: 0, width: 1440, height: 900 });
+    state = desktopReducer(state, { type: "window.fullscreen-toggle", app: "chromium" });
+    expect(state.windows.chromium.placement.kind).toBe("maximized");
   });
 });

@@ -29,6 +29,15 @@ function endpointName(endpoint: DiagramEndpoint, diagram: Diagram): string {
   return endpoint.kind === "node" ? diagramNode(diagram, endpoint.id).label : diagramGroup(diagram, endpoint.id).label;
 }
 
+function constructionCoordinates(values: readonly number[], limit: number): readonly number[] {
+  const deduped = [...values]
+    .filter((value) => value > 0 && value < limit)
+    .sort((left, right) => left - right)
+    .filter((value, index, coordinates) => index === 0 || value - coordinates[index - 1] >= 12);
+  if (deduped.length <= 8) return deduped;
+  return deduped.filter((_, index) => index === 0 || index === deduped.length - 1 || index % Math.ceil(deduped.length / 6) === 0);
+}
+
 function diagramAssistiveLines(diagram: Diagram): readonly string[] {
   const concepts = `Concepts: ${diagram.nodes.map((node) => node.label).join(", ")}.`;
   const groups = diagram.groups.map((group) => `${group.label} contains ${group.nodeIds.map((id) => diagramNode(diagram, id).label).join(", ")}.`);
@@ -79,6 +88,14 @@ export function ConceptDiagram({ diagram }: { diagram: Diagram }) {
 
   const density = width ? diagramDensity(width) : undefined;
   const geometry = useMemo(() => width && fontStatus === "ready" ? layoutDiagram(diagram, { width, density: diagramDensity(width) }) : undefined, [diagram, fontStatus, width]);
+  const construction = useMemo(() => {
+    if (!geometry) return undefined;
+    const elements = geometry.groups.size ? [...geometry.groups.values()].map((group) => group.bounds) : [...geometry.nodes.values()].map((node) => node.bounds);
+    return {
+      x: constructionCoordinates(elements.flatMap((bounds) => [bounds.x, bounds.x + bounds.width]), geometry.width),
+      y: constructionCoordinates(elements.flatMap((bounds) => [bounds.y, bounds.y + bounds.height]), geometry.height),
+    };
+  }, [geometry]);
 
   return (
     <figure
@@ -100,6 +117,10 @@ export function ConceptDiagram({ diagram }: { diagram: Diagram }) {
                 </marker>
               ))}
             </defs>
+            <g className="diagram-construction">
+              {construction?.x.map((x) => <line key={`x-${x}`} x1={x} y1="0" x2={x} y2={geometry.height} />)}
+              {construction?.y.map((y) => <line key={`y-${y}`} x1="0" y1={y} x2={geometry.width} y2={y} />)}
+            </g>
             {[...geometry.groups.values()].map((placed) => {
               const group = diagramGroup(diagram, placed.id);
               return (

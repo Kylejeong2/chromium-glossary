@@ -2,10 +2,10 @@
 spec_format_version: "0.1"
 title: "Chromium glossary"
 artifact_type: "prd"
-spec_revision: 9
+spec_revision: 10
 author: "Kyle Jeong"
 created_at: "2026-09-02T11:23:00-07:00"
-updated_at: "2026-09-03T15:02:00-07:00"
+updated_at: "2026-09-03T22:55:00-07:00"
 applies_to:
   - path: "src/app/"
   - path: "src/components/"
@@ -29,20 +29,21 @@ Build a Next.js microsite that starts as a polished, macOS-inspired glass deskto
 
 ```productspec-scope
 in:
-  - Present exactly 50 foundational Chromium concepts grouped into a conceptual learning journey.
-  - Give every concept a source-reviewed lede, concise mechanism explanation, compact diagram, representative Chromium source paths, related terms, and at least one primary source link.
+  - Present exactly 50 foundational Chromium concepts in a ground-up journey from browser objects to processes, trust boundaries, navigation, document execution, rendering, and tracing.
+  - Give every concept a source-reviewed lede, concise mechanism explanation, two deeper explanatory sections, a compact diagram, representative Chromium source paths, related terms, and at least one primary source link.
   - Start on an interactive macOS-inspired desktop with a 30-pixel translucent menu bar, a centered 77-pixel glass dock, Chromium, Trash, and Terminal shortcuts, draggable icons, widgets, and clear launch behavior.
-  - Open the glossary in a Chrome window that occupies about 80 percent of the viewport and can be dragged, closed, minimized, restored, and focused.
+  - Open the glossary in a Chrome window that occupies about 80 percent of the viewport and can be dragged, resized, zoomed, minimized, restored, focused, and placed in true full screen.
   - Match current Chrome hierarchy and source-derived proportions with a 41-pixel tab strip, 35-pixel active tab, 46-pixel toolbar, 34-pixel controls and omnibox, macOS-style left window controls, and a separate webpage region.
-  - Use self-hosted Inter throughout the OS, browser frame, glossary prose and controls, Terminal, and code paths.
+  - Use self-hosted Inter throughout the OS, browser frame, glossary prose, controls, and code paths. Use the existing self-hosted GT Standard Mono only for deterministic diagrams and the command-line surface.
   - Apply the Browserbase diagram system only inside custom concept diagrams. Diagram labels use self-hosted GT Standard Mono. Diagram structure uses Browserbase Grey 900 `#46639F`, construction lines use Grey 200 `#F0F4F8`, and red `#FF4500` marks only a sourced positive focus or active path. Use 1-pixel strokes, 8-pixel geometry, sharp structural boxes, and pills only for actions or live states.
-  - Keep the desktop shell, Chrome frame, glossary prose and navigation, Terminal, and official Chromium images outside the Browserbase diagram system.
+  - Keep the desktop shell, Chrome frame, glossary prose and navigation, Terminal colors and layout, and official Chromium images outside the Browserbase diagram system.
   - Use source-controlled, locally served image assets with exact provenance and license notes, including a real wallpaper and the official open-source Chromium product mark. Use official Chromium diagrams only where they directly explain an entry.
   - Make the glossary webpage feel native to Google Chrome through its quiet blue interaction color, pale neutral surfaces, rounded control language, restrained dividers, and settings-page clarity without copying protected Google assets or adding another font family.
   - Ground the webpage layout in current Chromium Settings WebUI constants, including a 56-pixel content toolbar, a 266-pixel navigation rail, a 680-pixel centered card column, 8-pixel card radii, 20-pixel section padding, and 48-to-64-pixel rows.
   - Show the `Chromium glossary` product title only on the unfiltered glossary index. Stage, entry, and search pages let their current content provide the visible page title.
   - Support global search, persistent category navigation, previous and next entry navigation, direct links, keyboard use, touch use, and narrow screens.
-  - Include a command-line Easter egg with Browserbase voice and a link to the official Browserbase careers page.
+  - Include a tabbed command-line Easter egg with command history, useful shell-like commands, Browserbase voice, and a link to the official Browserbase careers page.
+  - Make the visible application, File, Edit, View, Window, and Help menus execute useful contextual actions.
   - Add restrained OS and browser quirks that respond to exploration without blocking the glossary.
   - Cite Chromium primary documentation and clearly identify the artifact as an independent Browserbase learning resource.
 out:
@@ -58,29 +59,29 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: The initial route renders a coherent macOS-inspired desktop with a translucent 30-pixel menu bar, centered 77-pixel glass dock, upper-right Chromium, Terminal, and Trash shortcuts, two quiet widgets, an original full-bleed wallpaper, and no browser already open.
+  criterion: The initial route renders a coherent macOS-inspired desktop with a translucent 30-pixel menu bar, centered 77-pixel glass dock, upper-right Chromium, Terminal, and Trash shortcuts, two quiet widgets, the user-provided full-bleed Zoom Loom wallpaper, and no browser already open.
 - id: AC-2
   criterion: Double-clicking the Chromium launcher opens a browser window at roughly 86 percent of the viewport, the user can drag the window without losing it beyond the usable desktop, and closing it returns the user to the desktop.
 - id: AC-3
-  criterion: The glossary contains exactly 50 unique entries organized into a conceptual learning journey.
+  criterion: The glossary contains exactly 50 unique entries in a validated sequence that begins with browser objects, then covers process ownership, trust boundaries, navigation, document execution, rendering, and tracing.
 - id: AC-4
-  criterion: Every glossary entry contains one non-repeating source-reviewed lede, two to four concise mechanism sentences, an authored compact diagram whose nodes and relationships map to cited sources, at least one representative Chromium source path, at least one related term, and at least one working primary-source link.
+  criterion: Every glossary entry contains one non-repeating source-reviewed lede, two to four concise mechanism sentences, two or three distinct deeper sections with evidenced claims, at least 100 words of explanatory prose, an authored compact diagram whose nodes and relationships map to cited sources, at least one representative Chromium source path, at least one related term, and at least one working primary-source link.
 - id: AC-5
   criterion: Text search always searches all 50 entries, category state remains visible and recoverable in the URL, and a user can move to related, previous, and next entries without returning to the index.
 - id: AC-6
-  criterion: Opening Terminal displays a command-line interaction written in Browserbase's voice and offers the official Browserbase careers link without using Browserbase's visual system.
+  criterion: Opening Terminal displays a tabbed, monospaced command-line interaction with history navigation, useful discovery and open commands, Browserbase's voice, and the official Browserbase careers link without using Browserbase's diagram color or layout system.
 - id: AC-7
-  criterion: Desktop icons can be repositioned with pointer input, desktop windows can be dragged from their title areas, every launcher is keyboard reachable, and touch users can open an app without double-clicking.
+  criterion: Desktop icons can be repositioned with pointer input; floating windows can be dragged and resized within the usable desktop; Zoom, full screen, minimize, restore, and close preserve valid geometry; every launcher is keyboard reachable; and touch users can open an app without double-clicking.
 - id: AC-8
-  criterion: The core desktop, browser, search, navigation, close, minimize, restore, and terminal flows work at representative desktop and mobile viewport sizes.
+  criterion: The core desktop, browser, search, navigation, resize, Zoom, full screen, close, minimize, restore, Terminal, Trash, and menubar flows work at representative desktop and mobile viewport sizes.
 - id: AC-9
-  criterion: Every rendered surface outside custom concept diagrams resolves to self-hosted Inter; custom concept diagrams alone use self-hosted GT Standard Mono and the Browserbase diagram color and geometry contract; no diagram token or treatment leaks into the shell, Chrome frame, glossary prose or navigation, Terminal, code paths, or official Chromium images; and primary routes pass automated accessibility checks.
+  criterion: Every rendered surface outside custom concept diagrams and Terminal resolves to self-hosted Inter; custom concept diagrams and Terminal use the same self-hosted GT Standard Mono so no third family is introduced; only custom diagrams use the Browserbase color and geometry contract; and primary routes pass automated accessibility checks.
 - id: AC-10
   criterion: The production build succeeds and an automated content check verifies entry count, unique slugs, valid related terms, authored diagram endpoints, pattern topology, resolved claim evidence, source labels, source-tree paths, primary links, non-repeating copy, and the ban on em dashes, en dashes, curly quotes, and generic filler.
 - id: AC-11
   criterion: The browser frame visibly matches Chrome's tab strip, navigation toolbar, omnibox, window controls, and webpage hierarchy; its navigation and reload controls perform the actions they claim.
 - id: AC-12
-  criterion: Trash opens the garbage-collection concept, Terminal retains its commands, the dock gives immediate launch and focus feedback, and at least one discoverable Chrome quirk works without blocking normal navigation.
+  criterion: Trash behaves like a compact Finder window with selectable recovered files, Put Back, Empty Trash confirmation, recovery, and concept links; Terminal retains its commands and history; the dock gives immediate launch and focus feedback; and at least one discoverable Chrome quirk works without blocking normal navigation.
 - id: AC-13
   criterion: The shipped wallpaper, Chromium mark, Inter family, GT Standard Mono family, and any source diagrams are local assets with exact upstream URL, revision or release, license, modification, and use recorded in an asset provenance file.
 - id: AC-14
@@ -120,7 +121,7 @@ cut:
 
 The shortest critical journey is desktop arrival, Chromium launch, glossary orientation, entry selection, concept comprehension, related-term exploration, and source handoff. The desktop should reward curiosity without delaying readers who came for the reference. Chromium opens immediately after user input and uses familiar Chrome controls within a coherent macOS-inspired host. The draggable window stays recoverable. Search remains a webpage control rather than pretending to be the omnibox. Category grouping reduces scanning load while related terms keep the journey connected. Search is global. A selected category is browse context, never a hidden search filter. Each entry explains the mechanism before asking the reader to decode its diagram.
 
-The visual hierarchy has four deliberately separate layers. The macOS-inspired host owns the translucent menu bar, centered dock, warm original wallpaper, desktop shortcuts, widgets, and traffic-light window controls. Chrome owns the tab strip, toolbar, omnibox, browser menus, and the native visual language of the webpage controls and reading surfaces. The Chromium glossary owns the information architecture, prose, and references. Custom concept diagrams alone use the Browserbase diagram scale. They use semantic red sparingly and do not restyle the surrounding product.
+The visual hierarchy has four deliberately separate layers. The macOS-inspired host owns the translucent menu bar, centered dock, user-provided wallpaper, desktop shortcuts, widgets, and traffic-light window controls. Chrome owns the tab strip, toolbar, omnibox, browser menus, and the native visual language of the webpage controls and reading surfaces. The Chromium glossary owns the information architecture, prose, and references. Custom concept diagrams alone use the Browserbase diagram scale. They use semantic red sparingly and do not restyle the surrounding product.
 
 ## Risks
 
@@ -128,11 +129,11 @@ The visual hierarchy has four deliberately separate layers. The macOS-inspired h
 - Mixing operating-system conventions destroys credibility. The host must keep one macOS-inspired system across menu bar, dock, window controls, glass materials, shortcut treatment, and native app windows.
 - A literal Chrome frame can create fake controls. Every visible navigation control must either work or appear clearly unavailable.
 - Window dragging can strand content. The reducer must clamp committed positions, and narrow screens must use a fixed full-screen policy.
-- Fifty entries can feel repetitive. Each page needs a distinct lede and a short mechanism explanation instead of a fixed two-sentence template.
+- Fifty entries can feel repetitive. Each page needs a distinct lede, a concise mechanism explanation, and tailored deeper sections instead of a fixed sentence template.
 - A generic graph model can silently misstate relationships. Each diagram must use authored topology from an eight-pattern registry, and the renderer must never infer endpoints from array order or prose labels.
 - Chromium internals change. Every entry needs primary links, and claims should avoid brittle implementation trivia when the docs do not promise it.
 - Chromium and Chrome marks must not imply endorsement. The footer and About copy must state that Browserbase created the glossary independently.
-- A diagram-specific font can leak into the product. Scope GT Standard Mono and every Browserbase diagram token beneath the custom diagram root, with computed-style tests for surrounding surfaces.
+- A technical font can leak into prose and controls. Scope GT Standard Mono to custom diagrams and Terminal, keep every Browserbase diagram color token beneath the custom diagram root, and verify both boundaries in computed styles.
 - Larger text can expose weak fixed geometry. Diagram nodes, labels, groups, and routes must derive from measured content rather than shrinking copy or adding entry-specific coordinates.
 - Short height and narrow width are different constraints. The shell may compact because of height, but diagram topology must respond to the diagram's actual inline size.
 - Source pages and paths can move. Record the reviewed revision, distinguish rate limits from successful checks, and keep actionable replacements for known moved paths.

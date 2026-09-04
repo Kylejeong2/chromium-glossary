@@ -1,6 +1,6 @@
 import type { ConceptDiagram, DiagramEdge, DiagramEndpoint } from "../glossary";
 import { diagramGroup, mapValue } from "./lookup";
-import { measureEdgeLabel, measureSupport, supportLabel, supportLabelBox } from "./measure";
+import { measureEdgeLabel, measureSupport, supportLabelBox } from "./measure";
 import type { GroupPlacement, NodePlacement, PlacedText, Point, Rect, RoutedEdge } from "./types";
 
 type Side = "north" | "east" | "south" | "west";
@@ -180,9 +180,8 @@ function findPathThroughColumn(start: Point, end: Point, laneX: number, obstacle
 
 function labelForPath(label: string, points: readonly Point[], obstacles: readonly Rect[], width: number, height: number, boxed: boolean): PlacedText | undefined {
   const measured = boxed ? measureEdgeLabel(label, 152) : measureSupport(label, 152);
-  const text = supportLabel(measured.lines, { x: 0, y: 0, width: measured.width, height: measured.height });
-  const labelWidth = boxed ? measured.width : text.bounds.width;
-  const labelHeight = boxed ? measured.height : text.bounds.height;
+  const labelWidth = measured.width;
+  const labelHeight = measured.height;
   const segments = points.slice(1).map((point, index) => ({ start: points[index], end: point }))
     .sort((left, rightRect) => {
       const leftLength = Math.abs(left.end.x - left.start.x) + Math.abs(left.end.y - left.start.y);
@@ -202,7 +201,7 @@ function labelForPath(label: string, points: readonly Point[], obstacles: readon
       const bounds = { x: center.x - labelWidth / 2, y: center.y - labelHeight / 2, width: labelWidth, height: labelHeight };
       if (bounds.x < 4 || bounds.y < 4 || right(bounds) > width - 4 || bottom(bounds) > height - 4) continue;
       if (obstacles.some((rect) => intersects(bounds, rect, 1))) continue;
-      return boxed ? supportLabelBox(measured.lines, bounds) : supportLabel(measured.lines, bounds);
+      return supportLabelBox(measured.lines, bounds);
     }
   }
   return undefined;
@@ -234,6 +233,12 @@ function relationOrder(diagram: ConceptDiagram): readonly DiagramEdge[] {
   }
   const edgeIndexes = new Map(diagram.edges.map((edge, index) => [edge.id, index]));
   const boundaryRegions = boundaryRegionIndexes(diagram);
+  const comparisonRootId = diagram.intent.pattern === "branch" ? diagram.intent.rootId : undefined;
+  const comparisonTargets = comparisonRootId
+    ? new Set(diagram.edges.filter((edge) => edge.from.kind === "node" && edge.from.id === comparisonRootId && edge.to.kind === "node").map((edge) => edge.to.id))
+    : new Set<string>();
+  const comparisonBranch = comparisonTargets.size >= 3;
+  const fanInSinkId = diagram.intent.pattern === "fan-in" ? diagram.intent.sinkId : undefined;
   return [...diagram.edges].sort((left, rightEdge) => {
     const leftSpan = boundaryRegions
       ? Math.abs(mapValue(boundaryRegions, left.from.id, "boundary endpoint") - mapValue(boundaryRegions, left.to.id, "boundary endpoint"))
@@ -247,7 +252,14 @@ function relationOrder(diagram: ConceptDiagram): readonly DiagramEdge[] {
     const rightCrosses = rightEdge.from.kind === "group" || rightEdge.to.kind === "group" ? 0 : 1;
     const leftCycle = left.id === closingEdgeId ? 0 : 1;
     const rightCycle = rightEdge.id === closingEdgeId ? 0 : 1;
-    return (boundaryRegions ? leftBoundaryPriority - rightBoundaryPriority : 0)
+    const leftComparison = comparisonBranch && left.from.kind === "node" && left.from.id !== comparisonRootId && comparisonTargets.has(left.to.id) ? 0 : 1;
+    const rightComparison = comparisonBranch && rightEdge.from.kind === "node" && rightEdge.from.id !== comparisonRootId && comparisonTargets.has(rightEdge.to.id) ? 0 : 1;
+    const leftFanOutput = fanInSinkId && left.from.kind === "node" && left.from.id === fanInSinkId ? 0 : 1;
+    const rightFanOutput = fanInSinkId && rightEdge.from.kind === "node" && rightEdge.from.id === fanInSinkId ? 0 : 1;
+    return (fanInSinkId ? leftFanOutput - rightFanOutput : 0)
+      || (fanInSinkId ? mapValue(edgeIndexes, rightEdge.id, "diagram edge") - mapValue(edgeIndexes, left.id, "diagram edge") : 0)
+      || (comparisonBranch ? leftComparison - rightComparison : 0)
+      || (boundaryRegions ? leftBoundaryPriority - rightBoundaryPriority : 0)
       || leftCrosses - rightCrosses
       || leftCycle - rightCycle
       || mapValue(edgeIndexes, left.id, "diagram edge") - mapValue(edgeIndexes, rightEdge.id, "diagram edge")
@@ -270,8 +282,14 @@ export function routeDiagram(
   ];
   const labelObstacles: Rect[] = [];
   for (const edge of relationOrder(diagram)) {
-    const fromRect = endpointRect(edge.from, nodes, groups);
-    const toRect = endpointRect(edge.to, nodes, groups);
+    let fromRect = endpointRect(edge.from, nodes, groups);
+    let toRect = endpointRect(edge.to, nodes, groups);
+    if (width >= 560 && diagram.intent.pattern === "containment" && edge.from.kind === "group" && edge.to.kind === "group") {
+      const fromGroup = groups.get(edge.from.id)!;
+      const toGroup = groups.get(edge.to.id)!;
+      fromRect = { x: fromRect.x, y: Math.max(fromRect.y + 48, fromGroup.label.bounds.y + fromGroup.label.bounds.height + 16), width: fromRect.width, height: 1 };
+      toRect = { x: toRect.x, y: Math.max(toRect.y + 48, toGroup.label.bounds.y + toGroup.label.bounds.height + 16), width: toRect.width, height: 1 };
+    }
     let accepted: RoutedEdge | undefined;
     const boundarySpan = boundaryRegions
       ? Math.abs(mapValue(boundaryRegions, edge.from.id, "boundary endpoint") - mapValue(boundaryRegions, edge.to.id, "boundary endpoint"))

@@ -40,6 +40,12 @@ type SupportedClaim = Readonly<{
   evidence: readonly EvidenceRef[];
 }>;
 
+export type EntrySection = Readonly<{
+  id: string;
+  title: string;
+  claims: readonly SupportedClaim[];
+}>;
+
 export type CodeReference = Readonly<{
   path: string;
   repository: RepositoryId;
@@ -107,6 +113,7 @@ export type GlossaryEntry = Readonly<{
   aliases: readonly string[];
   lede: SupportedClaim;
   explanation: readonly SupportedClaim[];
+  details: readonly EntrySection[];
   diagram: ConceptDiagram;
   codePaths: readonly CodeReference[];
   relatedSlugs: readonly string[];
@@ -137,12 +144,22 @@ export type GlossaryIssue = Readonly<{
 const APPROVED_STAGE_ORDER = [
   "meet-the-browser",
   "process-boundaries",
-  "url-to-document",
-  "rendering-pixels",
-  "javascript-scheduling",
   "security-boundaries",
+  "url-to-document",
+  "javascript-scheduling",
+  "rendering-pixels",
   "observe-verify",
 ] as const;
+
+const APPROVED_CURRICULUM: Readonly<Record<(typeof APPROVED_STAGE_ORDER)[number], readonly string[]>> = {
+  "meet-the-browser": ["chromium-vs-chrome", "content-layer", "browser-ui-views", "webcontents", "webui"],
+  "process-boundaries": ["multi-process-architecture", "browser-process", "renderer-process", "frame-tree", "render-frame-host", "siteinstance", "mojo", "service-process"],
+  "security-boundaries": ["origin-and-site", "site-isolation", "process-lock", "sandbox"],
+  "url-to-document": ["navigation", "navigation-throttle", "url-loader", "network-service", "network-isolation-key", "http-cache", "cookies", "storage-partition", "service-worker"],
+  "javascript-scheduling": ["blink", "dom", "v8", "isolate-and-context", "v8-bindings", "tasks-threads-sequences", "event-loop", "worker", "garbage-collection"],
+  "rendering-pixels": ["style-recalculation", "layout", "document-lifecycle", "paint", "paint-artifact", "paint-invalidation", "property-trees", "compositing", "rasterization", "surface", "viz", "beginframe", "gpu-process", "ozone"],
+  "observe-verify": ["tracing"],
+};
 
 const FORBIDDEN_PUNCTUATION = /[\u2013\u2014\u2018\u2019\u201c\u201d]/;
 const FORBIDDEN_FILLER = /conceptual, not exhaustive|other web-facing machinery|appropriate sandbox|evolving visual output/i;
@@ -337,6 +354,12 @@ export function validateGlossary(input: unknown): GlossaryIssue[] {
     if (!stage.id || !stage.title || !stage.description || asArray(stage.entries).length === 0) {
       issues.push({ code: "stage.required", path: `stages.${stageIndex}`, message: "Stage id, title, description, and entries are required." });
     }
+    const stageId = asString(stage.id) as (typeof APPROVED_STAGE_ORDER)[number];
+    const expectedSlugs = APPROVED_CURRICULUM[stageId];
+    const actualSlugs = asArray(stage.entries).filter(isRecord).map((entry) => asString(entry.slug));
+    if (expectedSlugs && JSON.stringify(actualSlugs) !== JSON.stringify(expectedSlugs)) {
+      issues.push({ code: "curriculum.order", path: `stages.${stageIndex}.entries`, message: "Concepts must follow the approved ground-up Chromium curriculum." });
+    }
     for (const [entryIndex, value] of asArray(stage.entries).entries()) {
       if (!isRecord(value)) continue;
       const entry = value;
@@ -348,6 +371,7 @@ export function validateGlossary(input: unknown): GlossaryIssue[] {
 
       const lede = isRecord(entry.lede) ? entry.lede : {};
       const explanation = asArray(entry.explanation).filter(isRecord);
+      const details = asArray(entry.details).filter(isRecord);
       if (!lede.text || asArray(lede.evidence).length === 0 || explanation.length < 2 || explanation.length > 4) {
         issues.push({ code: "entry.copy", path, message: "One evidenced lede and two to four evidenced mechanism sentences are required." });
       }
@@ -355,6 +379,31 @@ export function validateGlossary(input: unknown): GlossaryIssue[] {
         if (!claim.text || asArray(claim.evidence).length === 0) issues.push({ code: "claim.evidence", path, message: "Every mechanism sentence needs evidence." });
         if (normalizeCopy(asString(claim.text)) === normalizeCopy(asString(lede.text))) {
           issues.push({ code: "copy.repeated", path, message: "The lede cannot repeat in the explanation." });
+        }
+      }
+      if (details.length < 2 || details.length > 3) {
+        issues.push({ code: "entry.details", path: `${path}.details`, message: "Each entry needs two or three deeper explanatory sections." });
+      }
+      const detailIds = new Set<string>();
+      const detailTitles = new Set<string>();
+      const allCopy = new Set([normalizeCopy(asString(lede.text)), ...explanation.map((claim) => normalizeCopy(asString(claim.text)))]);
+      for (const [detailIndex, detail] of details.entries()) {
+        const detailPath = `${path}.details.${detailIndex}`;
+        const detailId = asString(detail.id);
+        const detailTitle = normalizeCopy(asString(detail.title));
+        const claims = asArray(detail.claims).filter(isRecord);
+        if (!detailId || detailIds.has(detailId) || !detailTitle || detailTitles.has(detailTitle) || claims.length < 2 || claims.length > 3) {
+          issues.push({ code: "entry.detail-section", path: detailPath, message: "Detail sections need unique IDs and titles plus two or three claims." });
+        }
+        detailIds.add(detailId);
+        detailTitles.add(detailTitle);
+        for (const claim of claims) {
+          const copy = normalizeCopy(asString(claim.text));
+          if (!claim.id || !claim.text || asArray(claim.evidence).length === 0) {
+            issues.push({ code: "claim.evidence", path: detailPath, message: "Every detail claim needs an ID, copy, and evidence." });
+          }
+          if (allCopy.has(copy)) issues.push({ code: "copy.repeated", path: detailPath, message: "Detail copy cannot repeat another entry claim." });
+          allCopy.add(copy);
         }
       }
 
@@ -388,6 +437,7 @@ export function validateGlossary(input: unknown): GlossaryIssue[] {
 
       const evidenceLists: unknown[] = [lede.evidence];
       explanation.forEach((claim) => evidenceLists.push(claim.evidence));
+      details.forEach((detail) => asArray(detail.claims).filter(isRecord).forEach((claim) => evidenceLists.push(claim.evidence)));
       const diagram = isRecord(entry.diagram) ? entry.diagram : {};
       const caption = isRecord(diagram.caption) ? diagram.caption : {};
       evidenceLists.push(caption.evidence);
@@ -500,7 +550,7 @@ export function createCatalog(document: GlossaryDocument): GlossaryCatalog {
   const indexBySlug = new Map(entries.map((entry, index) => [entry.slug, index]));
   const byStage = new Map(document.stages.map((stage) => [stage.id, stage]));
   const stageBySlug = new Map(document.stages.flatMap((stage) => stage.entries.map((entry) => [entry.slug, stage] as const)));
-  const searchText = new Map(entries.map((entry) => [entry.slug, [entry.term, ...entry.aliases, entry.lede.text, ...entry.explanation.map((claim) => claim.text), ...entry.codePaths.map((item) => item.path)].join(" ").toLowerCase()]));
+  const searchText = new Map(entries.map((entry) => [entry.slug, [entry.term, ...entry.aliases, entry.lede.text, ...entry.explanation.map((claim) => claim.text), ...entry.details.flatMap((section) => [section.title, ...section.claims.map((claim) => claim.text)]), ...entry.codePaths.map((item) => item.path)].join(" ").toLowerCase()]));
   return {
     stages: document.stages,
     entries,

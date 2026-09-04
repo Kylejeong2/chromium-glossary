@@ -25,8 +25,14 @@ export function EntryArticle({ entry, previous, next, resolveTerm, onNavigate }:
         <p>{entry.lede.text}</p>
       </header>
       <section className="definition-section">
-        <h2>How it works</h2>
-        <div>{entry.explanation.map((claim) => <p key={claim.id}>{claim.text}</p>)}</div>
+        <div className="entry-prose-section">
+          <h2>How it works</h2>
+          <div>{entry.explanation.map((claim) => <p key={claim.id}>{claim.text}</p>)}</div>
+        </div>
+        {entry.details.map((section) => <section className="entry-prose-section" key={section.id}>
+          <h2>{section.title}</h2>
+          <div>{section.claims.map((claim) => <p key={claim.id}>{claim.text}</p>)}</div>
+        </section>)}
       </section>
       <ConceptDiagram diagram={entry.diagram} />
       <div className="entry-references">

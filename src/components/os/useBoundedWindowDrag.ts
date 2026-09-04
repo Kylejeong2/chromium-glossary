@@ -3,15 +3,15 @@
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { clampFrame, type Rect, type Workspace } from "@/domain/desktop";
 
-export function useBoundedWindowDrag({ frame, workspace, onCommit }: { frame: Rect; workspace: Workspace; onCommit: (frame: Rect) => void }) {
+export function useBoundedWindowDrag({ frame, workspace, onCommit, disabled = false }: { frame: Rect; workspace: Workspace; onCommit: (frame: Rect) => void; disabled?: boolean }) {
   const [preview, setPreview] = useState<Rect>();
   const start = useRef<{ pointer: { x: number; y: number }; frame: Rect } | undefined>(undefined);
-  const disabled = workspace.mode === "compact";
+  const dragDisabled = disabled || workspace.mode === "compact";
   return {
     frame: preview ?? frame,
     dragProps: {
       onPointerDown(event: ReactPointerEvent<HTMLElement>) {
-        if (disabled || event.button !== 0 || (event.target as HTMLElement).closest("button,a,input,[role=tab]")) return;
+        if (dragDisabled || event.button !== 0 || (event.target as HTMLElement).closest("button,a,input,[role=tab]")) return;
         event.currentTarget.setPointerCapture(event.pointerId);
         start.current = { pointer: { x: event.clientX, y: event.clientY }, frame };
       },

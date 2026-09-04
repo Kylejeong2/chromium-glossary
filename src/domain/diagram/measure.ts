@@ -2,8 +2,8 @@ import type { DiagramDensity, PlacedText, Rect } from "./types";
 import { GT_STANDARD_MONO_METRICS } from "./font-metrics.generated";
 
 export const DIAGRAM_FONT = '"GT Standard Mono"';
-export const NODE_FONT_SIZE = 13;
-const NODE_LINE_HEIGHT = 17;
+export const NODE_FONT_SIZE = 14;
+const NODE_LINE_HEIGHT = 18;
 export const SUPPORT_FONT_SIZE = 12;
 const SUPPORT_LINE_HEIGHT = 15;
 const GLYPH_ADVANCES: Readonly<Record<string, number>> = GT_STANDARD_MONO_METRICS.advances;
@@ -25,8 +25,11 @@ export function diagramTextWidth(text: string, fontSize: number): number {
 }
 
 export function minimumNodeWidth(label: string): number {
-  const widestWord = Math.max(...label.trim().split(/\s+/).filter(Boolean).map((word) => diagramTextWidth(word, NODE_FONT_SIZE)));
-  return align(Math.max(96, widestWord + 32));
+  const words = label.trim().split(/\s+/).filter(Boolean);
+  const narrowestThreeLineWrap = Math.min(
+    ...partitions(words, Math.min(3, words.length)).map((lines) => Math.max(...lines.map((line) => diagramTextWidth(line, NODE_FONT_SIZE)))),
+  );
+  return align(Math.max(112, narrowestThreeLineWrap + 40));
 }
 
 function partitions(words: readonly string[], maxLines: number): readonly string[][] {
@@ -77,13 +80,14 @@ function placeText(lines: readonly string[], rect: Rect, fontSize: number, lineH
 }
 
 export function measureNode(label: string, slotWidth: number, density: DiagramDensity): Readonly<{ width: number; height: number; lines: readonly string[] }> {
-  const safeSlot = Math.max(96, align(slotWidth));
-  const maxTextWidth = Math.max(64, Math.min(density === "compact" ? 208 : 176, safeSlot - 32));
+  const safeSlot = Math.max(112, align(slotWidth));
+  const widestWord = Math.max(...label.trim().split(/\s+/).filter(Boolean).map((word) => diagramTextWidth(word, NODE_FONT_SIZE)));
+  const maxTextWidth = Math.max(72, Math.min(density === "compact" ? 216 : 184, safeSlot - 40), Math.min(safeSlot - 16, widestWord));
   const lines = wrapMonospace(label, maxTextWidth, NODE_FONT_SIZE);
   const textWidth = Math.max(...lines.map((line) => diagramTextWidth(line, NODE_FONT_SIZE)));
   return {
-    width: Math.min(safeSlot, align(Math.max(96, textWidth + 32))),
-    height: align(Math.max(48, lines.length * NODE_LINE_HEIGHT + 24)),
+    width: Math.min(safeSlot, align(Math.max(112, textWidth + 40))),
+    height: align(Math.max(56, lines.length * NODE_LINE_HEIGHT + 24)),
     lines,
   };
 }
@@ -95,8 +99,8 @@ export function nodeLabel(lines: readonly string[], bounds: Rect): PlacedText {
 export function measureSupport(label: string, maxWidth: number): Readonly<{ width: number; height: number; lines: readonly string[] }> {
   const lines = wrapMonospace(label, Math.max(56, maxWidth), SUPPORT_FONT_SIZE);
   return {
-    width: align(Math.max(40, Math.max(...lines.map((line) => diagramTextWidth(line, SUPPORT_FONT_SIZE))) + 12)),
-    height: align(lines.length * SUPPORT_LINE_HEIGHT + 6),
+    width: align(Math.max(48, Math.max(...lines.map((line) => diagramTextWidth(line, SUPPORT_FONT_SIZE))) + 16)),
+    height: align(lines.length * SUPPORT_LINE_HEIGHT + 8),
     lines,
   };
 }

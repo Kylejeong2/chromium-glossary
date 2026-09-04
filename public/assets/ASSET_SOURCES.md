@@ -22,14 +22,14 @@ All bundled visual and font assets are stored locally. Nothing is hotlinked at r
 - Modification: none. The terminal alias resolves upstream to `terminal-app.png`; this repository stores the resolved PNG.
 - Use: desktop launchers, dock, and native application context
 
-## Glass ribbons wallpaper
+## Zoom Loom wallpaper
 
-- File: `wallpapers/glass-ribbons-gold.jpg`
-- Source: Generated with OpenAI image generation for this project
-- Release: `2026-09-03 original project asset`
-- Creator: OpenAI image generation, directed by Browserbase
-- License: Original generated project asset
-- Modification: converted from PNG to JPEG at quality 88 for faster delivery
+- File: `wallpapers/zoom-loom-05.jpg`
+- Source: User-provided file `zoom_loom_05.png`
+- Release: `2026-09-03 user-provided project asset`
+- Creator: supplied by the repository owner
+- License: User-provided project asset
+- Modification: resized from 5760 by 3315 pixels to a maximum dimension of 2880 pixels and converted from PNG to JPEG at quality 90 for faster delivery
 - Use: full-bleed simulated desktop wallpaper
 
 ## Inter Variable
@@ -40,7 +40,7 @@ All bundled visual and font assets are stored locally. Nothing is hotlinked at r
 - Creator: Rasmus Andersson and contributors
 - License: SIL Open Font License 1.1, https://github.com/rsms/inter/blob/353b61b9f4430d5f420d56605a6e7993e0941470/LICENSE.txt
 - Modification: none
-- Use: rendered font family across the OS, Chrome frame, glossary prose, Terminal, and controls
+- Use: rendered font family across the OS, Chrome frame, glossary prose, and controls
 
 ## GT Standard Mono
 
@@ -50,4 +50,4 @@ All bundled visual and font assets are stored locally. Nothing is hotlinked at r
 - Creator: Grilli Type
 - License: Browserbase commercial font license; do not redistribute outside licensed Browserbase properties
 - Modification: none
-- Use: labels inside `.concept-diagram` only
+- Use: measured labels inside `.concept-diagram` and the Terminal command-line surface

@@ -6,7 +6,7 @@ This file records the external references that informed revision 9. It separates
 
 ## Selected host system
 
-The host follows the user's macOS 27 simulator reference without copying its code, wallpaper, or protected system artwork.
+The host follows the user's macOS 27 simulator reference without copying its code or protected system artwork. Its wallpaper is the project owner's supplied artwork.
 
 Observed reference measurements at 1478 by 1024:
 
@@ -18,7 +18,7 @@ Observed reference measurements at 1478 by 1024:
 
 Reference: https://macos-27-simulator.mweinbach.chatgpt.site/
 
-Implementation choice: preserve that anatomy with an original generated gold glass-ribbon wallpaper, a 30-pixel glass menu bar, two glossary-relevant widgets, a centered 77-pixel dock, upper-right shortcuts, traffic-light controls, and warm window shadows. The Chrome webpage and Browserbase diagram boundary remain unchanged.
+Implementation choice: preserve that anatomy with the supplied blue and orange Zoom Loom wallpaper, a 30-pixel glass menu bar, two glossary-relevant widgets, a centered 77-pixel dock, upper-right shortcuts, traffic-light controls, and warm window shadows. The Chrome webpage and Browserbase diagram boundary remain unchanged.
 
 ## Chrome frame
 
@@ -94,13 +94,13 @@ Implementation choice: retain Stagehand's separation of browser chrome from webp
 
 ## Typography and brand boundary
 
-Inter Variable covers the OS, Chrome frame, glossary prose and navigation, forms, Terminal, and code paths. GT Standard Mono is the second and only other family; it is scoped to custom concept diagrams and supplies the metrics used by their geometry engine.
+Inter Variable covers the OS, Chrome frame, glossary prose and navigation, forms, and code paths. GT Standard Mono is the second and only other family; it is scoped to custom concept diagrams and Terminal, and its generated metrics drive the diagram geometry engine.
 
 Sources:
 
 - Inter: https://github.com/rsms/inter
 
-The Browserbase visual scale is confined to custom concept diagrams. Browserbase Grey 900 `#46639f` defines diagram structure, Grey 200 `#f0f4f8` defines construction lines, and red `#ff4500` marks only a sourced positive focus or active path. GT Standard Mono is diagram-only. No Browserbase token, font treatment, logo, gradient, illustration, or layout pattern is applied to the surrounding webpage, Chrome frame, OS, Terminal, code paths, or official Chromium imagery.
+The Browserbase visual scale is confined to custom concept diagrams. Browserbase Grey 900 `#46639f` defines diagram structure, Grey 200 `#f0f4f8` defines construction lines, and red `#ff4500` marks only a sourced positive focus or active path. Terminal reuses GT Standard Mono as a functional command-line face but does not inherit Browserbase diagram colors, geometry, logo, gradient, illustration, or layout patterns.
 
 Source: https://www.browserbase.com/
 

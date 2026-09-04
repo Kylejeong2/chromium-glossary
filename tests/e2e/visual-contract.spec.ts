@@ -46,7 +46,7 @@ test("diagram typography is scoped independently from the surrounding interface"
   await waitForDiagram(page);
   await expect(page.locator(".entry-header h1")).toHaveCSS("font-family", /Inter Variable/);
   await expect(page.locator(".concept-diagram .diagram-unit text").first()).toHaveCSS("font-family", /GT Standard Mono/);
-  await expect(page.locator(".concept-diagram .diagram-unit text").first()).toHaveCSS("font-size", "13px");
+  await expect(page.locator(".concept-diagram .diagram-unit text").first()).toHaveCSS("font-size", "14px");
   await expect(page.locator(".concept-diagram .diagram-relation text").first()).toHaveCSS("font-size", "12px");
   await expect(page.locator(".definition-section p").first()).toHaveCSS("font-family", /Inter Variable/);
   expect((await page.request.get("/assets/fonts/InterVariable.woff2")).ok()).toBe(true);
@@ -76,8 +76,8 @@ test("Chrome-native glossary surfaces keep the product title on the index only",
   await expect(app).toHaveAttribute("data-view", "index");
   await expect(app.getByText("Chromium glossary", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Chromium glossary home" })).toBeAttached();
-  await expect(page.getByRole("heading", { name: "Cross process boundaries", exact: true })).toBeVisible();
-  await expect(page.locator(".chrome-tab > span")).toHaveText("Cross process boundaries");
+  await expect(page.getByRole("heading", { name: "Map the process model", exact: true })).toBeVisible();
+  await expect(page.locator(".chrome-tab > span")).toHaveText("Map the process model");
 
   await page.goto("/glossary/site-isolation");
   await expect(app).toHaveAttribute("data-view", "entry");
@@ -98,6 +98,20 @@ test("Chrome-native glossary surfaces keep the product title on the index only",
   await expect(page.getByRole("heading", { name: "Search results", exact: true })).toBeVisible();
   await expect(page.locator(".chrome-tab > span")).toHaveText("Search results");
   await expect(page.locator(".search-results ol")).toHaveCSS("background-color", "rgb(255, 255, 255)");
+});
+
+test("wide glossary toolbar centers Command-K and locks technical fonts", async ({ page, isMobile }) => {
+  await page.goto("/glossary/worker");
+  const centers = await page.locator(".glossary-toolbar").evaluate((toolbar) => {
+    const search = toolbar.querySelector(".glossary-search")?.getBoundingClientRect();
+    const bounds = toolbar.getBoundingClientRect();
+    return { toolbar: bounds.left + bounds.width / 2, search: search ? search.left + search.width / 2 : 0 };
+  });
+  if (!isMobile) expect(Math.abs(centers.toolbar - centers.search)).toBeLessThanOrEqual(1);
+  await waitForDiagram(page);
+  await expect(page.locator(".concept-diagram .diagram-unit text").first()).toHaveCSS("font-family", /GT Standard Mono/);
+  await page.getByRole("button", { name: "Terminal", exact: true }).click();
+  await expect(page.locator(".terminal-app")).toHaveCSS("font-family", /GT Standard Mono/);
 });
 
 test("all eight authored diagram patterns fit without horizontal scrolling", async ({ page }) => {
@@ -124,7 +138,7 @@ test("all eight authored diagram patterns fit without horizontal scrolling", asy
     expect(canvasBox, slug).not.toBeNull();
     expect(canvasBox!.x, slug).toBeGreaterThanOrEqual(figureBox!.x);
     expect(canvasBox!.x + canvasBox!.width, slug).toBeLessThanOrEqual(figureBox!.x + figureBox!.width + 1);
-    await expect(canvas.locator(".diagram-unit text").first()).toHaveCSS("font-size", "13px");
+    await expect(canvas.locator(".diagram-unit text").first()).toHaveCSS("font-size", "14px");
   }
 });
 
@@ -133,15 +147,15 @@ test("authentic local assets are present and the grouped navigator adapts", asyn
     "/assets/icons/chromium.svg",
     "/assets/icons/terminal.png",
     "/assets/icons/trash.png",
-    "/assets/wallpapers/glass-ribbons-gold.jpg",
+    "/assets/wallpapers/zoom-loom-05.jpg",
     "/assets/fonts/GT-Standard-Mono-Regular.otf",
     "/assets/ASSET_SOURCES.md",
   ]) expect((await page.request.get(asset)).ok(), asset).toBe(true);
 
   await page.goto("/glossary/multi-process-architecture");
   await waitForDiagram(page);
-  await expect(page.getByRole("navigation", { name: "Chromium concepts" })).toBeAttached();
-  await expect(page.locator(".journey-rail__stage", { hasText: "Cross process boundaries" })).toHaveAttribute("aria-current", "step");
+  await expect(page.locator(".journey-rail")).toBeAttached();
+  await expect(page.locator(".journey-rail__stage", { hasText: "Map the process model" })).toHaveAttribute("aria-current", "step");
   const diagram = page.locator(".concept-diagram");
   await expect(diagram).toBeVisible();
   if (isMobile) {
@@ -223,6 +237,9 @@ test("glossary reading order and text floors hold in every shell mode", async ({
   });
   expect(order).toBe(true);
   await expect(page.locator(".definition-section p").first()).toHaveCSS("font-size", "17px");
+  await expect(page.locator(".entry-prose-section")).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: "A policy hook in the pipeline", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Continue, defer, redirect, or cancel", exact: true })).toBeVisible();
   await expect(page.locator(".entry-header p")).toHaveCSS("font-size", "19px");
   await expect(page.locator(".back-to-index")).toHaveCSS("font-size", "13px");
   await expect(page.locator(".reference-panel code").first()).toHaveCSS("font-size", "12px");

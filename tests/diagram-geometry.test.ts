@@ -28,4 +28,32 @@ describe("diagram geometry", () => {
     const issues = auditDiagramGeometry(entry.diagram, { ...geometry, nodes });
     expect(issues.some((issue) => issue.code === "node.missing")).toBe(true);
   });
+
+  it("aligns worker models with the context that creates or wakes them", () => {
+    const entry = entries.find((candidate) => candidate.slug === "worker")!;
+    const geometry = layoutDiagram(entry.diagram, { width: 680, density: "wide" });
+    for (const [model, context] of [["dedicated", "document"], ["shared", "clients"], ["service", "events"]] as const) {
+      const modelBounds = geometry.nodes.get(model)!.bounds;
+      const contextBounds = geometry.nodes.get(context)!.bounds;
+      expect(modelBounds.x + modelBounds.width / 2).toBe(contextBounds.x + contextBounds.width / 2);
+    }
+  });
+
+  it("keeps compact container peers and cycle rows visually grouped", () => {
+    const renderer = entries.find((candidate) => candidate.slug === "renderer-process")!;
+    const rendererGeometry = layoutDiagram(renderer.diagram, { width: 360, density: "compact" });
+    expect(rendererGeometry.nodes.get("blink")!.bounds.y).toBe(rendererGeometry.nodes.get("v8")!.bounds.y);
+
+    const lifecycle = entries.find((candidate) => candidate.slug === "document-lifecycle")!;
+    const lifecycleGeometry = layoutDiagram(lifecycle.diagram, { width: 360, density: "compact" });
+    expect(lifecycleGeometry.nodes.get("style")!.bounds.y).toBe(lifecycleGeometry.nodes.get("layout")!.bounds.y);
+    expect(lifecycleGeometry.nodes.get("prepaint")!.bounds.y).toBe(lifecycleGeometry.nodes.get("paint")!.bounds.y);
+  });
+
+  it("keeps long linear labels inside their measured nodes", () => {
+    const entry = entries.find((candidate) => candidate.slug === "network-service")!;
+    const geometry = layoutDiagram(entry.diagram, { width: 680, density: "wide" });
+    expect(geometry.nodes.get("clients")!.label.lines).toEqual(["Browser and", "renderer", "clients"]);
+    expect(auditDiagramGeometry(entry.diagram, geometry)).toEqual([]);
+  });
 });

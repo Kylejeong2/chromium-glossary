@@ -94,6 +94,18 @@ function column(
   return ids.length === 0 ? y : cursor - gap;
 }
 
+function compactRows(diagram: ConceptDiagram, ids: readonly string[], inner: number, gap: number): readonly (readonly string[])[] {
+  const rows: string[][] = [];
+  for (let index = 0; index < ids.length;) {
+    const pair = ids.slice(index, index + 2);
+    const laneWidth = (inner - gap) / 2;
+    const pairFits = pair.length === 2 && pair.every((id) => minimumNodeWidth(diagramNode(diagram, id).label) - 7 <= laneWidth);
+    rows.push(pairFits ? pair : [ids[index]]);
+    index += pairFits ? 2 : 1;
+  }
+  return rows;
+}
+
 function finish(placement: MutablePlacement, height: number): PatternPlacement {
   return { height: align(height), nodes: placement.nodes, groups: placement.groups };
 }
@@ -120,6 +132,30 @@ function graphLevels(diagram: ConceptDiagram): readonly string[][] {
   });
   const levelNumbers = [...new Set(depths.values())].sort((a, b) => a - b);
   return levelNumbers.map((depth) => diagram.nodes.filter((node) => depths.get(node.id) === depth).map((node) => node.id));
+}
+
+function graphDepths(diagram: ConceptDiagram): ReadonlyMap<string, number> {
+  const incoming = new Map(diagram.nodes.map((node) => [node.id, 0]));
+  const outgoing = new Map(diagram.nodes.map((node) => [node.id, [] as string[]]));
+  for (const edge of diagram.edges) {
+    if (edge.from.kind !== "node" || edge.to.kind !== "node") continue;
+    incoming.set(edge.to.id, (incoming.get(edge.to.id) ?? 0) + 1);
+    outgoing.get(edge.from.id)?.push(edge.to.id);
+  }
+  const depths = new Map(diagram.nodes.map((node) => [node.id, 0]));
+  const queue = diagram.nodes.filter((node) => (incoming.get(node.id) ?? 0) === 0).map((node) => node.id);
+  const visited = new Set<string>();
+  while (queue.length) {
+    const id = queue.shift()!;
+    visited.add(id);
+    for (const target of outgoing.get(id) ?? []) {
+      depths.set(target, Math.max(depths.get(target) ?? 0, (depths.get(id) ?? 0) + 1));
+      incoming.set(target, (incoming.get(target) ?? 1) - 1);
+      if (incoming.get(target) === 0) queue.push(target);
+    }
+  }
+  diagram.nodes.filter((node) => !visited.has(node.id)).forEach((node, index) => depths.set(node.id, Math.max(...depths.values()) + index + 1));
+  return depths;
 }
 
 function inducedLevels(diagram: ConceptDiagram, ids: readonly string[]): readonly string[][] {
@@ -189,7 +225,6 @@ function placeRegionRows(
   rows: ReturnType<typeof regionRowSizes>,
   x: number,
   y: number,
-  width: number,
   viewport: DiagramViewport,
   laneHeights?: readonly number[],
   rowGap = 24,
@@ -244,15 +279,16 @@ function layoutLinear(diagram: ConceptDiagram, viewport: DiagramViewport): Patte
     const bottom = column(placement, diagram, intent.order, y, inset, inner, viewport);
     return finish(placement, bottom + inset);
   }
+  const relationGap = Math.min(176, Math.max(96, ...diagram.edges.map((edge) => measureSupport(edge.label, 220).width + 32)));
   const natural = intent.order.map((id) => measureNode(diagramNode(diagram, id).label, 208, "wide"));
-  const oneRowWidth = natural.reduce((sum, item) => sum + item.width, 0) + 40 * Math.max(0, natural.length - 1);
+  const oneRowWidth = natural.reduce((sum, item) => sum + item.width, 0) + relationGap * Math.max(0, natural.length - 1);
   if (oneRowWidth <= inner) {
     let x = inset + (inner - oneRowWidth) / 2;
     let tallest = 0;
     intent.order.forEach((id, index) => {
       const item = natural[index];
       addNode(placement, diagram, id, x, y, item.width, viewport);
-      x += item.width + 40;
+      x += item.width + relationGap;
       tallest = Math.max(tallest, item.height);
     });
     return finish(placement, y + tallest + inset);
@@ -260,16 +296,57 @@ function layoutLinear(diagram: ConceptDiagram, viewport: DiagramViewport): Patte
   const split = Math.ceil(intent.order.length / 2);
   const first = intent.order.slice(0, split);
   const second = intent.order.slice(split).reverse();
-  const firstBottom = row(placement, diagram, first, y, inset, inner, viewport, 40);
-  const secondBottom = row(placement, diagram, second, firstBottom + 72, inset, inner, viewport, 40);
+  const fittedGap = (ids: readonly string[]) => {
+    if (ids.length < 2) return relationGap;
+    const slotFloor = Math.max(...ids.map((id) => minimumNodeWidth(diagramNode(diagram, id).label) - 7));
+    return Math.min(relationGap, Math.max(40, (inner - slotFloor * ids.length) / (ids.length - 1)));
+  };
+  const firstBottom = row(placement, diagram, first, y, inset, inner, viewport, fittedGap(first));
+  const secondBottom = row(placement, diagram, second, firstBottom + 96, inset, inner, viewport, fittedGap(second));
   return finish(placement, secondBottom + inset);
 }
 
 function layoutBranch(diagram: ConceptDiagram, viewport: DiagramViewport): PatternPlacement {
   if (diagram.intent.pattern !== "branch") throw new Error("Branch layout received another pattern");
+  const intent = diagram.intent;
   const placement = makePlacement();
   const inset = viewport.density === "compact" ? COMPACT_INSET : INSET;
   const inner = viewport.width - inset * 2;
+  const rootTargets = diagram.edges
+    .filter((edge) => edge.from.kind === "node" && edge.from.id === intent.rootId && edge.to.kind === "node")
+    .map((edge) => edge.to.id);
+  const rootTargetSet = new Set(rootTargets);
+  const contextPairs = diagram.nodes
+    .filter((node) => node.id !== intent.rootId && !rootTargetSet.has(node.id))
+    .map((node) => {
+      const target = diagram.edges.find((edge) => edge.from.kind === "node" && edge.from.id === node.id && edge.to.kind === "node" && rootTargetSet.has(edge.to.id));
+      return target?.to.kind === "node" ? { contextId: node.id, targetId: target.to.id } : undefined;
+    })
+    .filter((pair): pair is { contextId: string; targetId: string } => Boolean(pair));
+  const comparison = rootTargets.length >= 3
+    && contextPairs.length === rootTargets.length
+    && rootTargets.every((targetId) => contextPairs.some((pair) => pair.targetId === targetId));
+  if (comparison) {
+    const rootMeasure = measureNode(diagramNode(diagram, intent.rootId).label, Math.min(224, inner), viewport.density);
+    const root = addNode(placement, diagram, intent.rootId, inset + (inner - rootMeasure.width) / 2, inset, rootMeasure.width, viewport);
+    if (viewport.density === "wide") {
+      const targetY = root.bounds.y + root.bounds.height + 104;
+      const targetBottom = row(placement, diagram, rootTargets, targetY, inset, inner, viewport, 24);
+      const contexts = rootTargets.map((targetId) => contextPairs.find((pair) => pair.targetId === targetId)!.contextId);
+      const contextBottom = row(placement, diagram, contexts, targetBottom + 80, inset, inner, viewport, 24);
+      return finish(placement, contextBottom + inset);
+    }
+    const gap = 72;
+    const slot = (inner - gap) / 2;
+    let y = root.bounds.y + root.bounds.height + 96;
+    for (const targetId of rootTargets) {
+      const contextId = contextPairs.find((pair) => pair.targetId === targetId)!.contextId;
+      const target = addNode(placement, diagram, targetId, inset, y, slot, viewport);
+      const context = addNode(placement, diagram, contextId, inset + slot + gap, y, slot, viewport);
+      y += Math.max(target.bounds.height, context.bounds.height) + 96;
+    }
+    return finish(placement, y - 96 + inset);
+  }
   const levels = graphLevels(diagram);
   let y = inset;
   for (const ids of levels) {
@@ -297,14 +374,21 @@ function layoutFanIn(diagram: ConceptDiagram, viewport: DiagramViewport): Patter
   const sources = diagram.nodes.filter((node) => diagram.edges.some((edge) => edge.from.kind === "node" && edge.from.id === node.id && edge.to.kind === "node" && edge.to.id === sink)).map((node) => node.id);
   const rest = diagram.nodes.filter((node) => node.id !== sink && !sources.includes(node.id)).map((node) => node.id);
   if (viewport.density === "compact") {
-    const laneWidth = Math.min(184, inner * .62);
+    const laneGap = 24;
+    const laneWidth = (inner - laneGap) / 2;
     let y = inset;
-    for (const [index, id] of sources.entries()) {
-      const x = index % 2 === 0 ? inset : viewport.width - inset - laneWidth;
-      const item = addNode(placement, diagram, id, x, y, laneWidth, viewport);
-      y += item.bounds.height + 40;
+    for (const pair of compactRows(diagram, sources, inner, laneGap)) {
+      let rowHeight = 0;
+      pair.forEach((id, columnIndex) => {
+        const slotWidth = pair.length === 1 ? inner : laneWidth;
+        const measured = measureNode(diagramNode(diagram, id).label, slotWidth, viewport.density);
+        const slotX = pair.length === 1 ? inset + (inner - measured.width) / 2 : inset + columnIndex * (laneWidth + laneGap);
+        const item = addNode(placement, diagram, id, slotX, y, slotWidth, viewport);
+        rowHeight = Math.max(rowHeight, item.bounds.height);
+      });
+      y += rowHeight + 64;
     }
-    y += 72;
+    y += 24;
     const sinkNode = addNode(placement, diagram, sink, inset + inner * .18, y, inner * .64, viewport);
     y += sinkNode.bounds.height + 64;
     const bottom = column(placement, diagram, rest, y, inset, inner, viewport, 40);
@@ -332,13 +416,29 @@ function layoutFanOut(diagram: ConceptDiagram, viewport: DiagramViewport): Patte
     const sourceMeasure = measureNode(diagramNode(diagram, source).label, inner * .7, viewport.density);
     const sourceNode = addNode(placement, diagram, source, inset + (inner - sourceMeasure.width) / 2, inset, sourceMeasure.width, viewport);
     let y = sourceNode.bounds.y + sourceNode.bounds.height + 104;
-    const laneWidth = Math.min(184, inner * .62);
-    for (const [index, id] of targets.entries()) {
-      const x = index % 2 === 0 ? inset : viewport.width - inset - laneWidth;
-      const item = addNode(placement, diagram, id, x, y, laneWidth, viewport);
-      y += item.bounds.height + 40;
+    const laneGap = 24;
+    const laneWidth = (inner - laneGap) / 2;
+    if (targets.length > 3) {
+      const staggeredWidth = Math.min(184, inner * .62);
+      targets.forEach((id, index) => {
+        const x = index % 2 === 0 ? inset : viewport.width - inset - staggeredWidth;
+        const item = addNode(placement, diagram, id, x, y, staggeredWidth, viewport);
+        y += item.bounds.height + 40;
+      });
+    } else {
+      for (const pair of compactRows(diagram, targets, inner, laneGap)) {
+        let rowHeight = 0;
+        pair.forEach((id, columnIndex) => {
+          const slotWidth = pair.length === 1 ? inner : laneWidth;
+          const measured = measureNode(diagramNode(diagram, id).label, slotWidth, viewport.density);
+          const slotX = pair.length === 1 ? inset + (inner - measured.width) / 2 : inset + columnIndex * (laneWidth + laneGap);
+          const item = addNode(placement, diagram, id, slotX, y, slotWidth, viewport);
+          rowHeight = Math.max(rowHeight, item.bounds.height);
+        });
+        y += rowHeight + 64;
+      }
     }
-    y += 32;
+    y += 16;
     const bottom = column(placement, diagram, rest, y, inset, inner, viewport, 40);
     return finish(placement, Math.max(y, bottom) + inset);
   }
@@ -366,7 +466,8 @@ function layoutContainment(diagram: ConceptDiagram, viewport: DiagramViewport): 
       const uniqueByGroup = groupIds.map((id) => diagramGroup(diagram, id).nodeIds.filter((nodeId) => !shared.has(nodeId)));
       const firstSizes = uniqueByGroup[0].map((id) => measureNode(diagramNode(diagram, id).label, inner - 32, viewport.density));
       const secondSizes = uniqueByGroup[1].map((id) => measureNode(diagramNode(diagram, id).label, inner - 32, viewport.density));
-      const overlap = 104;
+      const sharedHeight = Math.max(...[...shared].map((id) => measureNode(diagramNode(diagram, id).label, inner - 48, viewport.density).height));
+      const overlap = align(GROUP_HEADER + sharedHeight + 40);
       const firstHeight = align(GROUP_HEADER + firstSizes.reduce((sum, item) => sum + item.height, 0) + Math.max(0, firstSizes.length - 1) * 24 + overlap);
       const secondHeight = align(GROUP_HEADER + secondSizes.reduce((sum, item) => sum + item.height, 0) + Math.max(0, secondSizes.length - 1) * 24 + overlap);
       const firstY = inset;
@@ -379,7 +480,7 @@ function layoutContainment(diagram: ConceptDiagram, viewport: DiagramViewport): 
         addNode(placement, diagram, id, inset + (inner - item.width) / 2, firstNodeY, item.width, viewport);
         firstNodeY += item.height + 24;
       });
-      let sharedY = secondY + GROUP_HEADER;
+      let sharedY = secondY + GROUP_HEADER + 24;
       for (const id of shared) {
         const item = addNode(placement, diagram, id, inset + 24, sharedY, inner - 48, viewport);
         sharedY += item.bounds.height + 16;
@@ -394,25 +495,30 @@ function layoutContainment(diagram: ConceptDiagram, viewport: DiagramViewport): 
       const externalBottom = column(placement, diagram, external, bottom + 64, inset, inner, viewport, 40);
       return finish(placement, Math.max(bottom, externalBottom) + inset);
     }
-    const overlap = Math.min(144, inner * .35);
+    const sharedMeasures = [...shared].map((id) => measureNode(diagramNode(diagram, id).label, 208, viewport.density));
+    const sharedWidth = Math.max(...sharedMeasures.map((item) => item.width));
+    const sharedHeight = Math.max(...sharedMeasures.map((item) => item.height));
+    const overlap = align(Math.min(Math.max(sharedWidth + 32, 176), inner * .4));
     const groupWidth = (inner + overlap) / 2;
     const membersByGroup = groupIds.map((id) => diagramGroup(diagram, id).nodeIds.filter((nodeId) => !shared.has(nodeId)));
-    const memberHeights = membersByGroup.map((ids) => ids.reduce((sum, id) => sum + measureNode(diagramNode(diagram, id).label, groupWidth - 32, viewport.density).height + 24, 0));
-    const height = align(GROUP_HEADER + Math.max(88, ...memberHeights) + 104);
+    const memberWidth = groupWidth - overlap - GROUP_PADDING - 8;
+    const memberHeights = membersByGroup.map((ids) => Math.max(...ids.map((id) => measureNode(diagramNode(diagram, id).label, memberWidth, viewport.density).height)));
+    const tallestMember = Math.max(...memberHeights);
+    const height = align(GROUP_HEADER + tallestMember + 80 + sharedHeight + 32);
     const firstX = inset;
     const secondX = inset + groupWidth - overlap;
     addGroup(placement, diagram, groupIds[0], { x: firstX, y: inset, width: groupWidth, height });
     addGroup(placement, diagram, groupIds[1], { x: secondX, y: inset, width: groupWidth, height });
     membersByGroup.forEach((ids, groupIndex) => {
-      let y = inset + GROUP_HEADER;
       const x = groupIndex === 0 ? firstX + GROUP_PADDING : secondX + overlap + 8;
       const width = groupWidth - overlap - GROUP_PADDING - 8;
+      let y = inset + GROUP_HEADER;
       for (const id of ids) {
         const item = addNode(placement, diagram, id, x, y, width, viewport);
         y += item.bounds.height + 24;
       }
     });
-    let sharedY = inset + height - 80;
+    let sharedY = inset + GROUP_HEADER + tallestMember + 80;
     for (const id of shared) {
       const item = addNode(placement, diagram, id, inset + inner / 2 - overlap / 2 + 8, sharedY, overlap - 16, viewport);
       sharedY += item.bounds.height + 16;
@@ -423,25 +529,61 @@ function layoutContainment(diagram: ConceptDiagram, viewport: DiagramViewport): 
   }
 
   const sideBySide = viewport.density === "wide" && groupIds.length > 1;
-  const gap = sideBySide ? 24 : 32;
+  const interGroupRelations = diagram.edges.filter((edge) => edge.from.kind === "group" && edge.to.kind === "group");
+  const gap = sideBySide
+    ? Math.min(176, Math.max(48, ...interGroupRelations.map((edge) => measureSupport(edge.label, 220).width + 32)))
+    : 32;
   const groupWidth = sideBySide ? (inner - gap * (groupIds.length - 1)) / groupIds.length : inner;
+  if (viewport.density === "compact" && groupIds.length === 1) {
+    const group = diagramGroup(diagram, groupIds[0]);
+    const members = group.nodeIds;
+    const contentWidth = inner - GROUP_PADDING * 2;
+    const hasIncomingGroupEdge = diagram.edges.some((edge) => edge.to.kind === "group" && edge.to.id === group.id);
+    const hasInternalRelations = diagram.edges.some((edge) => edge.from.kind === "node" && edge.to.kind === "node" && members.includes(edge.from.id) && members.includes(edge.to.id));
+    const peerWidth = members.reduce((sum, id) => sum + minimumNodeWidth(diagramNode(diagram, id).label), 0) + Math.max(0, members.length - 1) * 12;
+    const rows = !hasInternalRelations && peerWidth <= contentWidth ? [members] : regionRows(diagram, members, contentWidth);
+    const rowSizes = regionRowSizes(diagram, rows, contentWidth, viewport);
+    const rowGap = hasInternalRelations ? 64 : 32;
+    const groupHeight = align(GROUP_HEADER + rowSizes.reduce((sum, rowData) => sum + rowData.height, 0) + Math.max(0, rowSizes.length - 1) * rowGap + GROUP_PADDING);
+    let groupY = inset;
+    let externalBottom = inset;
+    if (external.length && hasIncomingGroupEdge) {
+      externalBottom = column(placement, diagram, external, inset, inset, inner, viewport, 40);
+      groupY = externalBottom + 80;
+    }
+    addGroup(placement, diagram, group.id, { x: inset, y: groupY, width: inner, height: groupHeight });
+    placeRegionRows(placement, diagram, rowSizes, inset + GROUP_PADDING, groupY + GROUP_HEADER, viewport, undefined, rowGap);
+    if (external.length && !hasIncomingGroupEdge) {
+      const externalPeerWidth = external.reduce((sum, id) => sum + minimumNodeWidth(diagramNode(diagram, id).label), 0) + Math.max(0, external.length - 1) * 24;
+      externalBottom = externalPeerWidth <= inner
+        ? row(placement, diagram, external, groupY + groupHeight + 80, inset, inner, viewport, 24)
+        : column(placement, diagram, external, groupY + groupHeight + 80, inset, inner, viewport, 40);
+    }
+    return finish(placement, Math.max(groupY + groupHeight, externalBottom) + inset);
+  }
   if (viewport.density === "wide" && groupIds.length === 1) {
     const group = diagramGroup(diagram, groupIds[0]);
     const members = group.nodeIds;
     const hasIncomingGroupEdge = diagram.edges.some((edge) => edge.to.kind === "group" && edge.to.id === group.id);
-    const groupWidth = external.length ? inner * .62 : Math.min(inner, 640);
-    const externalWidth = external.length ? inner - groupWidth - 48 : 0;
-    const groupX = external.length && hasIncomingGroupEdge ? inset + externalWidth + 48 : inset + (external.length ? 0 : (inner - groupWidth) / 2);
-    const externalX = hasIncomingGroupEdge ? inset : groupX + groupWidth + 48;
-    const sizes = members.map((id) => measureNode(diagramNode(diagram, id).label, groupWidth - GROUP_PADDING * 2, viewport.density));
-    const groupHeight = align(GROUP_HEADER + sizes.reduce((sum, item) => sum + item.height, 0) + Math.max(0, members.length - 1) * 24 + GROUP_PADDING);
+    const groupRelations = diagram.edges.filter((edge) => edge.from.id === group.id || edge.to.id === group.id);
+    const externalGap = external.length
+      ? Math.min(136, Math.max(72, ...groupRelations.map((edge) => measureSupport(edge.label, 220).width + 32)))
+      : 0;
+    const externalWidth = external.length
+      ? Math.max(...external.map((id) => minimumNodeWidth(diagramNode(diagram, id).label)))
+      : 0;
+    const groupWidth = external.length ? inner - externalGap - externalWidth : Math.min(inner, 640);
+    const groupX = external.length && hasIncomingGroupEdge ? inset + externalWidth + externalGap : inset + (external.length ? 0 : (inner - groupWidth) / 2);
+    const externalX = hasIncomingGroupEdge ? inset : groupX + groupWidth + externalGap;
+    const contentWidth = groupWidth - GROUP_PADDING * 2;
+    const hasInternalRelations = diagram.edges.some((edge) => edge.from.kind === "node" && edge.to.kind === "node" && members.includes(edge.from.id) && members.includes(edge.to.id));
+    const peerWidth = members.reduce((sum, id) => sum + minimumNodeWidth(diagramNode(diagram, id).label), 0) + Math.max(0, members.length - 1) * 12;
+    const rows = !hasInternalRelations && peerWidth <= contentWidth ? [members] : regionRows(diagram, members, contentWidth);
+    const rowSizes = regionRowSizes(diagram, rows, contentWidth, viewport);
+    const rowGap = hasInternalRelations ? 64 : 32;
+    const groupHeight = align(GROUP_HEADER + rowSizes.reduce((sum, rowData) => sum + rowData.height, 0) + Math.max(0, rowSizes.length - 1) * rowGap + GROUP_PADDING);
     addGroup(placement, diagram, group.id, { x: groupX, y: inset, width: groupWidth, height: groupHeight });
-    let nodeY = inset + GROUP_HEADER;
-    members.forEach((id, index) => {
-      const item = sizes[index];
-      addNode(placement, diagram, id, groupX + (groupWidth - item.width) / 2, nodeY, item.width, viewport);
-      nodeY += item.height + 24;
-    });
+    placeRegionRows(placement, diagram, rowSizes, groupX + GROUP_PADDING, inset + GROUP_HEADER, viewport, undefined, rowGap);
     const externalBottom = column(placement, diagram, external, inset + GROUP_HEADER, externalX, externalWidth, viewport, 48);
     return finish(placement, Math.max(inset + groupHeight, externalBottom) + inset);
   }
@@ -484,15 +626,29 @@ function layoutBoundary(diagram: ConceptDiagram, viewport: DiagramViewport): Pat
     const regionWidths = desiredTotal <= available
       ? desiredWidths.map((regionWidth) => regionWidth + (available - desiredTotal) / regions.length)
       : regions.map(() => available / regions.length);
-    const rowSets = regions.map((region, index) => regionRows(diagram, region.nodeIds, regionWidths[index] - 24));
-    const sizes = rowSets.map((rows, index) => regionRowSizes(diagram, rows, regionWidths[index] - 24, viewport));
-    const laneHeights = Array.from({ length: Math.max(...sizes.map((rows) => rows.length)) }, (_, rowIndex) => Math.max(...sizes.map((rows) => rows[rowIndex]?.height ?? 0)));
-    const height = align(GROUP_HEADER + laneHeights.reduce((sum, laneHeight) => sum + laneHeight, 0) + Math.max(0, laneHeights.length - 1) * 24 + 16);
+    const depths = graphDepths(diagram);
+    const levelCount = Math.max(...depths.values()) + 1;
+    const rows = regions.map((region, regionIndex) => Array.from({ length: levelCount }, (_, depth) => {
+      const ids = region.nodeIds.filter((id) => depths.get(id) === depth);
+      const sizes = ids.map((id) => measureNode(diagramNode(diagram, id).label, regionWidths[regionIndex] - 24, viewport.density));
+      return { ids, sizes, height: sizes.reduce((sum, size) => sum + size.height, 0) + Math.max(0, sizes.length - 1) * 16 };
+    }));
+    const laneHeights = Array.from({ length: levelCount }, (_, depth) => Math.max(0, ...rows.map((regionRows) => regionRows[depth].height)));
+    const height = align(GROUP_HEADER + laneHeights.reduce((sum, laneHeight) => sum + laneHeight, 0) + Math.max(0, laneHeights.length - 1) * 32 + 16);
     let x = inset;
     regions.forEach((region, index) => {
       const regionWidth = regionWidths[index];
       addGroup(placement, diagram, region.id, { x, y: inset, width: regionWidth, height });
-      placeRegionRows(placement, diagram, sizes[index], x + 12, inset + GROUP_HEADER, regionWidth - 24, viewport, laneHeights);
+      let laneY = inset + GROUP_HEADER;
+      rows[index].forEach((rowData, depth) => {
+        let nodeY = laneY + (laneHeights[depth] - rowData.height) / 2;
+        rowData.ids.forEach((id, nodeIndex) => {
+          const size = rowData.sizes[nodeIndex];
+          addNode(placement, diagram, id, x + (regionWidth - size.width) / 2, nodeY, size.width, viewport);
+          nodeY += size.height + 16;
+        });
+        laneY += laneHeights[depth] + 32;
+      });
       x += regionWidth + gap;
     });
     return finish(placement, inset + height + inset);
@@ -504,7 +660,7 @@ function layoutBoundary(diagram: ConceptDiagram, viewport: DiagramViewport): Pat
     const rowGap = 40;
     const height = align(GROUP_HEADER + rows.reduce((sum, rowData) => sum + rowData.height, 0) + Math.max(0, rows.length - 1) * rowGap + 16);
     addGroup(placement, diagram, region.id, { x: inset, y, width: inner, height });
-    placeRegionRows(placement, diagram, rows, inset + 16, y + GROUP_HEADER, nodeWidth, viewport, undefined, rowGap, compactBoundaryAlignments(diagram, region.id));
+    placeRegionRows(placement, diagram, rows, inset + 16, y + GROUP_HEADER, viewport, undefined, rowGap, compactBoundaryAlignments(diagram, region.id));
     y += height + 80;
   }
   return finish(placement, y - 80 + inset);
@@ -517,14 +673,13 @@ function layoutCycle(diagram: ConceptDiagram, viewport: DiagramViewport): Patter
   const inner = viewport.width - inset * 2;
   const ids = diagram.intent.order;
   if (viewport.density === "compact") {
-    let y = inset;
     const laneWidth = Math.min(144, (inner - 16) / 2);
-    ids.forEach((id, index) => {
-      const x = index % 2 === 0 ? inset : viewport.width - inset - laneWidth;
-      const item = addNode(placement, diagram, id, x, y, laneWidth, viewport);
-      y += item.bounds.height + 80;
-    });
-    return finish(placement, y - 80 + inset);
+    const topLeft = addNode(placement, diagram, ids[0], inset, inset, laneWidth, viewport);
+    const topRight = addNode(placement, diagram, ids[1], viewport.width - inset - laneWidth, inset, laneWidth, viewport);
+    const bottomY = inset + Math.max(topLeft.bounds.height, topRight.bounds.height) + 144;
+    addNode(placement, diagram, ids[2], viewport.width - inset - laneWidth, bottomY, laneWidth, viewport);
+    const bottomLeft = addNode(placement, diagram, ids[3], inset, bottomY, laneWidth, viewport);
+    return finish(placement, bottomLeft.bounds.y + bottomLeft.bounds.height + inset);
   }
   const laneWidth = Math.min(200, (inner - 80) / 2);
   const topLeft = addNode(placement, diagram, ids[0], inset, inset, laneWidth, viewport);
@@ -544,11 +699,22 @@ function layoutState(diagram: ConceptDiagram, viewport: DiagramViewport): Patter
   let y = inset;
   for (const ids of levels) {
     if (viewport.density === "compact" && ids.length > 1) {
-      const laneWidth = Math.min(208, inner * .72);
-      for (const [index, id] of ids.entries()) {
-        const x = index % 2 === 0 ? inset : viewport.width - inset - laneWidth;
-        const item = addNode(placement, diagram, id, x, y, laneWidth, viewport);
-        y += item.bounds.height + 32;
+      const laneGap = 24;
+      const laneWidth = (inner - laneGap) / 2;
+      const stateRows = compactRows(diagram, ids, inner, laneGap);
+      const staggerSingles = stateRows.length > 1 && stateRows.every((stateRow) => stateRow.length === 1);
+      for (const [rowIndex, stateRow] of stateRows.entries()) {
+        let rowHeight = 0;
+        stateRow.forEach((id, columnIndex) => {
+          const slotWidth = staggerSingles ? Math.min(208, inner * .72) : stateRow.length === 1 ? inner : laneWidth;
+          const measured = measureNode(diagramNode(diagram, id).label, slotWidth, viewport.density);
+          const x = staggerSingles
+            ? rowIndex % 2 === 0 ? inset : viewport.width - inset - measured.width
+            : stateRow.length === 1 ? inset + (inner - measured.width) / 2 : inset + columnIndex * (laneWidth + laneGap);
+          const item = addNode(placement, diagram, id, x, y, slotWidth, viewport);
+          rowHeight = Math.max(rowHeight, item.bounds.height);
+        });
+        y += rowHeight + 64;
       }
       y += 32;
     } else {
